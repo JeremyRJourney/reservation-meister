@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { Route, Routes, useLocation, Navigate } from 'react-router-dom';
+import styled from 'styled-components'
+
+import './App.css'
+
+import Main from './pages/Main'
+import Login from './pages/Login'
+import Manage from './pages/Manage'
 
 function App() {
+    const path = useLocation().pathname
+    if (!localStorage.getItem('isAuthed')) {
+      if (path !== "/login") {
+        return <Navigate to="/login" replace />
+      }
+    }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Wrapper>
+      <Routes>
+        <Route path="/" exact element={<Main/>} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/manage" element={<Manage />} />
+      </Routes>
+    </Wrapper>
+  )
 }
+
+const Wrapper = styled.div`
+  background-color: #1E2943;
+  height: 100vh;
+  width: 100vw;
+
+`
+
 
 export default App;

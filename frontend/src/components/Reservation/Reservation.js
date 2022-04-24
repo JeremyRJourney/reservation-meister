@@ -63,7 +63,7 @@ const Reservation = () => {
 const CountList = styled.div`
     display: flex;
     text-align: center;
-    justify-content: space-between;
+    justify-content: space-around;
     padding: 16px 8px;
     border-bottom: 1px solid #6b7280;
 `

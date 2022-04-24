@@ -1,10 +1,39 @@
+import styled from "styled-components"
 
-
-
-const Table = () => {
+const ReservationItem = (props) => {
+    const {first_name, last_name, id} = props
     return (
-        <div>table</div>
+        <Item>
+            <div>
+                <Table>{id}'s</Table>
+            </div>
+            <div>
+                <Title>VACANT - 4</Title>
+                <Title>OCCUPIED - 4</Title>
+            </div>
+        </Item>
     )
 }
 
-export default Table
+const Item = styled.div`
+    padding: 16px 8px;
+    border-bottom: 1px solid #6b7280;
+    :last-child {
+        border: none
+    };
+    display: flex;
+`
+const Table = styled.div`
+    background-color: #344571;
+    padding: 12px;
+    border-radius: 1000px;
+    font-size: 20px
+`
+const Title = styled.h1`
+    padding-left: 8px;
+    margin-top: 6px;
+    color: #d1d5db;
+    font-size: 14px;
+`
+
+export default ReservationItem

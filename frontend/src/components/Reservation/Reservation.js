@@ -26,18 +26,20 @@ const Reservation = () => {
     return (
         <div>
             <CountList>
-                <section>
-                    <h1>Scheduled</h1>
-                    <span style={{ fontSize: '24px' }}>84</span>
-                </section>
-                <section>
-                    <h1>Seated</h1>
-                    <span style={{ fontSize: '24px' }}>84</span>
-                </section>
-                <section>
-                    <h1>Completed</h1>
-                    <span style={{ fontSize: '24px' }}>84</span>
-                </section>
+                {reservations && <>
+                    <section>
+                        <h1>Scheduled</h1>
+                        <span style={{ fontSize: '24px' }}>{reservations.length}</span>
+                    </section>
+                    <section>
+                        <h1>Seated</h1>
+                        <span style={{ fontSize: '24px' }}>{reservations.length}</span>
+                    </section>
+                    <section>
+                        <h1>Completed</h1>
+                        <span style={{ fontSize: '24px' }}>{reservations.length}</span>
+                    </section>
+                </> }
             </CountList>
 
             <ReservationItems>

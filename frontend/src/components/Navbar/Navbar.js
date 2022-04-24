@@ -1,6 +1,8 @@
 import react, { useState } from "react"
 import styled from "styled-components"
 import Reservation from "../Reservation/Reservation"
+import Settings from "../Settings"
+import Tables from "../Tables"
 
 const Navbar = () => {
     const [currentNav, setCurrentNav] = useState("Reservations")
@@ -11,7 +13,8 @@ const Navbar = () => {
                 <Logo src="/static/logo.png" />
             </Nav>
             <NavOptions>
-                <NavItem 
+                <NavItem
+                    onClick={e => setCurrentNav('Reservations')}
                     className={currentNav === 'Reservations' ? 'active': undefined}
                 >
                     <div style={{ backgroundColor:"#d1d5db", borderRadius: '1000px', width: "32px", height: "32px" }}>
@@ -19,13 +22,15 @@ const Navbar = () => {
                     </div>
                 </NavItem>
                 <NavItem 
+                    onClick={e => setCurrentNav('Tables')}
                     className={currentNav === 'Tables' ? 'active': undefined}
                 >
                 <div style={{ backgroundColor:"#d1d5db", borderRadius: '1000px', width: "32px", height: "32px" }}>
                         <img width="20px" style={{ marginTop: "5px" }} src="/static/circle-table.png" />
                     </div>
                 </NavItem>
-                <NavItem 
+                <NavItem
+                    onClick={e => setCurrentNav('Settings')}
                     className={currentNav === 'Settings' ? 'active': undefined}
                 >
                 <div style={{ backgroundColor:"#d1d5db", borderRadius: '1000px', width: "32px", height: "32px" }}>
@@ -34,8 +39,8 @@ const Navbar = () => {
                 </NavItem>
             </NavOptions>
             {currentNav === 'Reservations' && <Reservation />}
-            {currentNav === 'Tables' && <Reservation />}
-            {currentNav === 'Settings' && <Reservation />}
+            {currentNav === 'Tables' && <Tables />}
+            {currentNav === 'Settings' && <Settings />}
         </Wrapper>
     )
 }

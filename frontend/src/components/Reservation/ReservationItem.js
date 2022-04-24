@@ -2,13 +2,24 @@ import styled from "styled-components"
 
 const ReservationItem = (props) => {
     const {first_name, last_name} = props
+
+    const GetName = () => {
+        let truncatedName = (first_name + " " + last_name).substring(0,20)
+        if (truncatedName === first_name + " " + last_name) {
+            return truncatedName
+        } else {
+            return truncatedName+"..."
+        }
+    }
+    const name = GetName()
+
     return (
         <Item>
             <div>
                 <Table>32</Table>
             </div>
             <div>
-                <Title>{first_name} {last_name} - 4 Guests - 16h30</Title>
+                <Title>{name} - 4 Guests - 16h30</Title>
             </div>
         </Item>
     )

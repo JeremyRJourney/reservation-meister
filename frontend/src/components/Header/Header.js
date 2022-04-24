@@ -6,6 +6,12 @@ const Header = (props) => {
     const currentNav = "Bar"
     const [navItems, setNavItems] = useState(['Bar','Gallery', 'Lounge', '2nd Floor'])
 
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+  
+    const date = new Date()
+    const today = days[date.getDay()] + ", " + months[date.getMonth()] + " " + date.getDate()
+
     return (
         <div>
             <ListWrapper>
@@ -20,7 +26,7 @@ const Header = (props) => {
                     )
                 })}
                 <DateItem>
-                    Saturday, April 2nd
+                    {today}
                 </DateItem>
             </ListWrapper>
         </div>
@@ -33,7 +39,7 @@ const ListWrapper = styled.ul`
     justify-content: space-around;
     align-items: center;
     height: 64px;
-    border-bottom: 2px solid #000;
+    border-bottom: 2px solid #6b7280;
 `
 const Item = styled.li`
     list-style: none;

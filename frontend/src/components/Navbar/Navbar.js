@@ -1,4 +1,4 @@
-import react, { useState } from "react"
+import { useState } from "react"
 import styled from "styled-components"
 import Reservation from "../Reservation/Reservation"
 import Settings from "../Settings"
@@ -18,7 +18,7 @@ const Navbar = () => {
                     className={currentNav === 'Reservations' ? 'active': undefined}
                 >
                     <div style={{ backgroundColor:"#d1d5db", borderRadius: '1000px', width: "32px", height: "32px" }}>
-                        <img width="20px" style={{ marginTop: "5px" }} src="/static/booking.png" />
+                        <img alt="bookings" width="20px" style={{ marginTop: "5px" }} src="/static/booking.png" />
                     </div>
                 </NavItem>
                 <NavItem 
@@ -26,7 +26,7 @@ const Navbar = () => {
                     className={currentNav === 'Tables' ? 'active': undefined}
                 >
                 <div style={{ backgroundColor:"#d1d5db", borderRadius: '1000px', width: "32px", height: "32px" }}>
-                        <img width="20px" style={{ marginTop: "5px" }} src="/static/circle-table.png" />
+                        <img alt="tables" width="20px" style={{ marginTop: "5px" }} src="/static/circle-table.png" />
                     </div>
                 </NavItem>
                 <NavItem
@@ -34,7 +34,7 @@ const Navbar = () => {
                     className={currentNav === 'Settings' ? 'active': undefined}
                 >
                 <div style={{ backgroundColor:"#d1d5db", borderRadius: '1000px', width: "32px", height: "32px" }}>
-                        <img width="20px" style={{ marginTop: "5px" }} src="/static/settings.png" />
+                        <img alt="settings" width="20px" style={{ marginTop: "5px" }} src="/static/settings.png" />
                     </div>
                 </NavItem>
             </NavOptions>

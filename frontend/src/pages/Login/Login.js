@@ -12,7 +12,7 @@ const Login = () => {
     const [isErrored, setIsErrored] = useState(false)
 
     const ValidateEmail = (e) => {
-        if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+        if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
             document.getElementById('email').style.border = "1px solid #ef4444"
             document.getElementById('email').style.color = "#ef4444"
             setCanSubmit(false)
@@ -28,7 +28,7 @@ const Login = () => {
         setIsErrored(false)
         fetch("https://reqres.in/api/users?page=2")
             .then(res => {
-                if(res.status == 404) {
+                if(res.status === 404) {
                     console.log('err')
                     setIsSumbitted(false)
                     setIsErrored(true)

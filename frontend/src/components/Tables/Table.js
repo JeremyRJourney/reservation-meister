@@ -1,7 +1,7 @@
 import styled from "styled-components"
 
 const ReservationItem = (props) => {
-    const {first_name, last_name, id} = props
+    const {id} = props
     return (
         <Item>
             <div>

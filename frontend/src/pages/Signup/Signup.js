@@ -18,7 +18,7 @@ const Signup = (props) => {
         fetch("https://reqres.in/api/users?page=2")
             .then(res => {
                 console.log("submit")
-                if(res.status == 404) {
+                if(res.status === 404) {
                     console.log('err')
                     setIsSumbitted(false)
                 } else {
@@ -104,15 +104,6 @@ const Logo = styled.img`
     height: 60px;
     margin-bottom: 24px;
     margin-left: -6px;
-`
-const Input = styled.input`
-    width: calc(100% - 16px);
-    border: 1px solid #9ca3af;
-    background-color: transparent;
-    border-radius: 5px;
-    padding: 8px;
-    color: #f3f4f6;
-    font-size: 16px;
 `
 const WelcomeLabal = styled.h2`
     color: #6b7280

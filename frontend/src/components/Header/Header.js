@@ -19,7 +19,8 @@ const Header = (props) => {
                     return (
                         <Item
                             key={item}
-                            style={ item == currentNav ? { borderBottom: '2px solid #FFF' } : {} }
+                            onClick={e => setNavItems(item)}
+                            style={ item === currentNav ? { borderBottom: '2px solid #FFF' } : {} }
                         >
                             <h1>{ item }</h1>
                         </Item>

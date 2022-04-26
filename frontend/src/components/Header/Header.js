@@ -2,9 +2,8 @@ import { useState } from "react"
 import styled from "styled-components"
 
 const Header = (props) => {
-    //const { currentNav } = props
-    const currentNav = "Bar"
-    const [navItems, setNavItems] = useState(['Bar','Gallery', 'Lounge', '2nd Floor'])
+    const { currentNav, setCurrentNav, fetchCurrentNav, updateTables } = props
+    const [navItems, setNavItems] = useState(['Bar','Gallery', 'Lounge', 'twoFloor'])
 
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
@@ -19,7 +18,7 @@ const Header = (props) => {
                     return (
                         <Item
                             key={item}
-                            onClick={e => setNavItems(item)}
+                            onClick={e => { setCurrentNav(item); fetchCurrentNav(item); updateTables(item) }}
                             style={ item === currentNav ? { borderBottom: '2px solid #FFF' } : {} }
                         >
                             <h1>{ item }</h1>
@@ -47,6 +46,9 @@ const Item = styled.li`
     font-size: 18px;
     padding: 24px 24px;
     margin-bottom: 4px;
+    :hover {
+        cursor: pointer
+    }
 `
 const DateItem = styled.li`
     list-style: none;

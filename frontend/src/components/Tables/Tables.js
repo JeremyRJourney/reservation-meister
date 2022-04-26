@@ -25,6 +25,9 @@ const Tables = () => {
 
     return (
         <div>
+            {!reservations && 
+                <span className="spinner-small align"></span>
+            }
             <CountList>
                 {reservations && <>
                     <section>

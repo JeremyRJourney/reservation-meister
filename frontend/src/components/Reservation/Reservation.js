@@ -17,7 +17,6 @@ const Reservation = () => {
         })
         .then((json) => {
             if (json.data) {
-                console.log(json.data)
                 setReservations(json.data)
             }
         })
@@ -25,6 +24,9 @@ const Reservation = () => {
 
     return (
         <div>
+            {!reservations && 
+                <span className="spinner-small align"></span>
+            }
             <CountList>
                 {reservations && <>
                     <section>

@@ -1,0 +1,32 @@
+import { useState } from "react"
+import styled from "styled-components"
+import Table from "./Table"
+
+
+const FloorPlan = (props) => {
+    const { currentNav, setCurrentNav, currentTables } = props
+
+    return (
+        <div id="floor-plan">
+            <Wrapper>
+            {currentTables && currentTables.map(item => {
+                    return (
+                        <Table
+                            key={item.id}
+                            data={item}
+                        />
+                    )
+            }) }
+            </Wrapper>
+
+        </div>
+    )
+}
+
+const Wrapper = styled.section`
+    position: relative;
+    height: 87vh
+`
+
+
+export default FloorPlan

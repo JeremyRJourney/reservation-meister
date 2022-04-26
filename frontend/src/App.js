@@ -3,6 +3,7 @@ import { Route, Routes, useLocation, Navigate } from 'react-router-dom';
 import styled from 'styled-components'
 
 import './App.css'
+import './assets/spinner.css'
 
 import Main from './pages/Main'
 import Login from './pages/Login'

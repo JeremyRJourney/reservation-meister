@@ -33,6 +33,26 @@
     border-radius: 100%;
     border-style: solid;
 }
+.spinner-small {
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+  border-width: 2px;
+  border-color: rgba(255, 255, 255, 0.05);
+  border-top-color: #fff;
+  animation: spin 1s infinite linear;
+  border-radius: 100%;
+  border-style: solid;
+}
+.align {
+  display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 @keyframes spin {
   100% {

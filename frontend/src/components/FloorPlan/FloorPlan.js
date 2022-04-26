@@ -1,10 +1,9 @@
-import { useState } from "react"
 import styled from "styled-components"
 import Table from "./Table"
 
 
 const FloorPlan = (props) => {
-    const { currentNav, setCurrentNav, currentTables } = props
+    const { currentTables } = props
 
     return (
         <div id="floor-plan">

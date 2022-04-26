@@ -14,7 +14,7 @@ const Table = (props) => {
         setLocationY(data.tableLocationY * document.getElementById("floor-plan").clientHeight)
 
         console.log(document.getElementById("floor-plan").clientHeight)
-    })
+    }, [])
 
     return(
             <TableFigure

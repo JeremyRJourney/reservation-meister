@@ -14,6 +14,7 @@ const Table = (props) => {
         setLocationY(data.tableLocationY * document.getElementById("floor-plan").clientHeight)
 
         console.log(document.getElementById("floor-plan").clientHeight)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return(

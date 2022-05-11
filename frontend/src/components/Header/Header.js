@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 const Header = (props) => {
     const { currentNav, setCurrentNav, fetchCurrentNav, updateTables } = props
-    const [navItems] = useState(['Bar','Gallery', 'Lounge', 'twoFloor'])
+    const [navItems] = useState(['Bar','Gallery', 'Lounge'])
 
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]

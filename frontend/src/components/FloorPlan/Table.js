@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
 import styled from "styled-components"
+import NewReservation from "../NewReservation"
+import TableDetails from "./TableDetails"
 
 
 const Table = (props) => {
@@ -8,6 +10,8 @@ const Table = (props) => {
 
     const [locationX, setLocationX] = useState(null)
     const [locationY, setLocationY] = useState(null)
+    const [showTooltip, setShowTooltip] = useState(false)
+    const [showReservationCreate, setShowReservationCreate] = useState(false)
 
     useEffect( () => {
         setLocationX(data.tableLocationX * document.getElementById("floor-plan").clientWidth)
@@ -17,18 +21,82 @@ const Table = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    const DetermineWidth = (tableType) => {
+        switch (tableType) {
+            case 2:
+                return '100px'
+            case 4:
+                return '175px'
+            case 6:
+                return '175px'
+            case 8:
+                return '225px'
+            default:
+                return '100px'
+        }
+    }
+    const DetermineHeight = (tableType) => {
+        switch (tableType) {
+            case 2:
+                return '100px'
+            case 4:
+                return '100px'
+            case 6:
+                return '175px'
+            case 8:
+                return '225px'
+            default:
+                return '100px'
+        }
+    }
+    const DetermineTableColor = (tableStatus) => {
+        switch (tableStatus) {
+            case 'vacant':
+                return "rgba(107,114,128,0.75)"
+            case 'occupied':
+                return "rgba(6,182,212,0.75)"
+            case 'reset':
+                return "rgba(14,159,110,0.75)"
+            default:
+                return "rgba(107,114,128,0.75)"
+
+        }
+    }
+
     return(
+        <>
+        <Wrapper
+            style={{
+                top: locationY, 
+                left: locationX,
+                width: 'min-content'
+            }}
+        >
             <TableFigure
+                onMouseEnter={() => setShowTooltip(true) }
+                onMouseLeave={() => setShowTooltip(false) }
+                onClick={ () => setShowReservationCreate(true) }
                 style={{ 
-                    top: locationY, 
-                    left: locationX,
-                    width: data.tableType === 2 ? '100px' : data.tableType === 4 ? '175px' : data.tableType === 6 ? '175px' : data.tableType === 8 ? '225px' : undefined,
-                    height: data.tableType === 2 ? '100px' : data.tableType === 4 ? '100px' : data.tableType === 6 ? '175px' : data.tableType === 8 ? '225px' : undefined,
+                    backgroundColor: DetermineTableColor(data.tableStatus),
+                    width: DetermineWidth(data.tableType),
+                    height: DetermineHeight(data.tableType),
                     borderRadius: data.tableType === 6  || data.tableType === 8 ? '1000px' : undefined
                 }}
             >{data.tableType}</TableFigure>
+            {showTooltip && <TableDetails
+                key={data.id}
+                data={data} 
+            />
+            }
+        </Wrapper>
+        {showReservationCreate && <NewReservation setShowReservationCreate={setShowReservationCreate} style={{ position: 'fixed', zIndex: 5 }} /> }
+        </>
     )
 }
+
+const Wrapper = styled.div`
+    position: relative
+`
 
 const TableFigure = styled.div`
     position: absolute;
@@ -36,6 +104,13 @@ const TableFigure = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+
+    :hover {
+        cursor: pointer;
+        opacity: 0.75;
+        transition-property: opacity ;
+        transition-duration: 0.25s;   
+    }
 `
 
 export default Table

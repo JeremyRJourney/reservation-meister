@@ -24,7 +24,7 @@ const FloorPlan = (props) => {
 
 const Wrapper = styled.section`
     position: relative;
-    height: 87vh
+    height: 87vh;
 `
 
 

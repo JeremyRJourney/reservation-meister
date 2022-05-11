@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import Navbar from "../../components/Navbar"
 import Header from "../../components/Header"
@@ -11,11 +11,21 @@ const Bar = [
         tableStatus: 'seated',
         tableLocationX: 0,
         tableLocationY: 0,
-        reservation: {
-            firstName: 'Alfred',
-            lastName: 'Jones',
-            time: '2022-05-01T16-00-00-000Z'
-        }
+        reservations: [
+            {
+                firstName: 'Alfred',
+                lastName: 'Jones',
+                guests: 2,
+                time: '2022-05-01T16-00-00-000Z'
+            },
+            {
+                firstName: 'Alfred',
+                lastName: 'Jones',
+                guests: 1,
+                time: '2022-05-01T16-00-00-000Z'
+            }
+
+        ]
     },
     {
         id: 14,
@@ -23,11 +33,14 @@ const Bar = [
         tableStatus: 'seated',
         tableLocationX: 0.3,
         tableLocationY: 0,
-        reservation: {
+        reservations: [
+            {
             firstName: 'Alfred',
             lastName: 'Jones',
+            guests: 4,
             time: '2022-05-01T16-00-00-000Z'
-        }
+            }
+        ]
     },
     {
         id: 102,
@@ -35,11 +48,14 @@ const Bar = [
         tableStatus: 'seated',
         tableLocationX: 0.7,
         tableLocationY: 0.0,
-        reservation: {
+        reservations: [
+            {
             firstName: 'Alfred',
             lastName: 'Jones',
+            guests: 7,
             time: '2022-05-01T16-00-00-000Z'
-        }
+            }
+        ]
     },
     {
         id: 4200,
@@ -47,11 +63,14 @@ const Bar = [
         tableStatus: 'seated',
         tableLocationX: 0,
         tableLocationY: 0.25,
-        reservation: {
+        reservations: [
+            {
             firstName: 'Alfred',
             lastName: 'Jones',
+            guests: 3,
             time: '2022-05-01T16-00-00-000Z'
-        }
+            }
+        ]
     },
     {
         id: 402,
@@ -59,11 +78,14 @@ const Bar = [
         tableStatus: 'seated',
         tableLocationX: 0.375,
         tableLocationY: 0.25,
-        reservation: {
+        reservations: [
+            {
             firstName: 'Alfred',
             lastName: 'Jones',
+            guests: 2,
             time: '2022-05-01T16-00-00-000Z'
-        }
+            }
+        ]
     },
     {
         id: 442,
@@ -71,11 +93,14 @@ const Bar = [
         tableStatus: 'seated',
         tableLocationX: 0.0,
         tableLocationY: 0.5,
-        reservation: {
+        reservations: [
+            {
             firstName: 'Alfred',
             lastName: 'Jones',
+            guests: 7,
             time: '2022-05-01T16-00-00-000Z'
-        }
+            }
+        ]
     },
     {
         id: 42030,
@@ -83,11 +108,14 @@ const Bar = [
         tableStatus: 'seated',
         tableLocationX: 0.45,
         tableLocationY: 0.55,
-        reservation: {
+        reservations: [
+            {
             firstName: 'Alfred',
             lastName: 'Jones',
+            guests: 4,
             time: '2022-05-01T16-00-00-000Z'
-        }
+            }
+        ]
     },
     
 
@@ -99,7 +127,7 @@ const Gallery = [
         tableStatus: 'seated',
         tableLocationX: 0,
         tableLocationY: 0,
-        reservation: {
+        reservations: {
             firstName: 'Alfred',
             lastName: 'Jones',
             time: '2022-05-01T16-00-00-000Z'
@@ -132,20 +160,39 @@ const Main = () => {
         })
     }
 
-    const updateTables = (item) => {
-        setCurrentTables(null)
-        setTimeout(() => {
-            if (item === 'Bar')
-                setCurrentTables(Bar)
-            if (item === 'Gallery')
-                setCurrentTables(Gallery)
-
-        }, 1000);
+    const fetchTables = () => {
+        fetch('https://mocki.io/v1/7d7ef5cf-f9e1-4882-b171-953761cbfdf2')
+        .then((res) => {
+            if (res.ok) 
+                return res.json()
+            else {
+                return res
+            }
+                
+        })
+        .then((json) => {
+            if (json.data) {
+                setCurrentTables(json.data)
+            }
+        })
     }
 
-    const [navItems] = useState(['Bar','Gallery', 'Lounge', 'twoFloor'])
+    const updateTables = (item) => {
+        setCurrentTables(null)
+        if (item === 'Bar')
+            fetchTables(Bar)
+        if (item === 'Gallery')
+            fetchTables(Gallery)
+
+    }
+
+    useEffect( () => {
+        fetchTables()
+    }, [])
+
+    const [navItems] = useState(['Bar','Gallery', 'Lounge'])
     const [currentNav, setCurrentNav] = useState('Bar')
-    const [currentTables, setCurrentTables] = useState(Bar)
+    const [currentTables, setCurrentTables] = useState(null)
 
     return (
         <div>

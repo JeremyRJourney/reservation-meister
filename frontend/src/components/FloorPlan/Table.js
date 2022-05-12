@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import styled from "styled-components"
-import NewReservation from "../NewReservation"
+import ReservationModal from "../ReservationModal"
 import TableDetails from "./TableDetails"
 
 
@@ -11,7 +11,8 @@ const Table = (props) => {
     const [locationX, setLocationX] = useState(null)
     const [locationY, setLocationY] = useState(null)
     const [showTooltip, setShowTooltip] = useState(false)
-    const [showReservationCreate, setShowReservationCreate] = useState(false)
+    const [selectedTable, setSelectedTable] = useState(null)
+    const [showReservationList, setShowReservationList] = useState(false)
 
     useEffect( () => {
         setLocationX(data.tableLocationX * document.getElementById("floor-plan").clientWidth)
@@ -75,7 +76,7 @@ const Table = (props) => {
             <TableFigure
                 onMouseEnter={() => setShowTooltip(true) }
                 onMouseLeave={() => setShowTooltip(false) }
-                onClick={ () => setShowReservationCreate(true) }
+                onClick={ () => { setSelectedTable(data.tableType); setShowReservationList(data) } }
                 style={{ 
                     backgroundColor: DetermineTableColor(data.tableStatus),
                     width: DetermineWidth(data.tableType),
@@ -89,7 +90,7 @@ const Table = (props) => {
             />
             }
         </Wrapper>
-        {showReservationCreate && <NewReservation setShowReservationCreate={setShowReservationCreate} style={{ position: 'fixed', zIndex: 5 }} /> }
+        {showReservationList && <ReservationModal setShowReservationList={setShowReservationList} style={{ position: 'fixed', zIndex: 5 }} /> }
         </>
     )
 }

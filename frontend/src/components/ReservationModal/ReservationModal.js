@@ -2,7 +2,7 @@ import { useState } from "react"
 import styled from "styled-components";
 
 
-const NewReservation = (props) => {
+const ReservationModal = (props) => {
     const { setShowReservationCreate, tableNumber } = props
     const [formData, setFormData] = useState({
         firstName: "",
@@ -23,7 +23,7 @@ const NewReservation = (props) => {
     return (
         <Wrapper>
             <TitleWrapper>
-                <Title>Create a New Reservation</Title>
+                <Title>Reservation list/details</Title>
                 <Close onClick={ () => setShowReservationCreate(false) }>✖</Close>
             </TitleWrapper>
             <form onSubmit={HandleSubmit}>
@@ -96,8 +96,6 @@ const NewReservation = (props) => {
 const Wrapper = styled.div`
     background-color: rgba(30,41,67,1);
     border: 1px solid #F1F1F1;
-    margin-left: 16px;
-    margin-top: 16px;
     box-shadow: 0 10px 15px -3px rgb(255 255 255 / 0.1), 0 4px 6px -4px rgb(255 255 255 / 0.1);
     padding: 24px;
     position: absolute;
@@ -171,4 +169,4 @@ font-size: 1rem;
 `
 
 
-export default NewReservation
+export default ReservationModal

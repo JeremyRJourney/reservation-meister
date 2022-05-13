@@ -11,7 +11,6 @@ const Table = (props) => {
     const [locationX, setLocationX] = useState(null)
     const [locationY, setLocationY] = useState(null)
     const [showTooltip, setShowTooltip] = useState(false)
-    const [selectedTable, setSelectedTable] = useState(null)
     const [showReservationList, setShowReservationList] = useState(false)
 
     useEffect( () => {
@@ -76,7 +75,7 @@ const Table = (props) => {
             <TableFigure
                 onMouseEnter={() => setShowTooltip(true) }
                 onMouseLeave={() => setShowTooltip(false) }
-                onClick={ () => { setSelectedTable(data.tableType); setShowReservationList(data) } }
+                onClick={ () => { setShowReservationList(data) } }
                 style={{ 
                     backgroundColor: DetermineTableColor(data.tableStatus),
                     width: DetermineWidth(data.tableType),

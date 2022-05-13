@@ -89,7 +89,7 @@ const Table = (props) => {
             />
             }
         </Wrapper>
-        {showReservationList && <ReservationModal setShowReservationList={setShowReservationList} style={{ position: 'fixed', zIndex: 5 }} /> }
+        {showReservationList && <ReservationModal setShowReservationList={setShowReservationList} data={data} style={{ position: 'fixed', zIndex: 5 }} /> }
         </>
     )
 }

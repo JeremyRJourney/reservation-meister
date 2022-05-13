@@ -3,20 +3,23 @@ import styled from "styled-components";
 
 
 const ReservationModal = (props) => {
-    const { setShowReservationCreate, tableNumber } = props
+    const { setShowReservationList, data } = props
+    const dateObj = new Date(data.reservations[0].time)
+    const ReservationDate = dateObj.getUTCHours() + ':' + ((dateObj.getUTCMinutes() < 10) ? ("0" + dateObj.getUTCMinutes()) : dateObj.getUTCMinutes())
+
     const [formData, setFormData] = useState({
-        firstName: "",
-        lastName: "",
-        tableNumber: tableNumber ? tableNumber : "",
-        time: "",
-        guests: "",
-        notes: ""
+        firstName: data.reservations[0].firstName,
+        lastName: data.reservations[0].lastName,
+        tableNumber: data.reservations[0].tableNumber ? data.reservations[0].tableNumber : "",
+        time: ReservationDate,
+        guests: data.reservations[0].guests,
+        notes: data.reservations[0].notes ? data.reservations[0].notes : ""
     })
 
     const HandleSubmit = (e) => {
         e.preventDefault()
-        console.log(tableNumber)
-        setShowReservationCreate(false)
+        console.log(data)
+        setShowReservationList(false)
     }
 
 
@@ -24,7 +27,7 @@ const ReservationModal = (props) => {
         <Wrapper>
             <TitleWrapper>
                 <Title>Reservation list/details</Title>
-                <Close onClick={ () => setShowReservationCreate(false) }>✖</Close>
+                <Close onClick={ () => setShowReservationList(false) }>✖</Close>
             </TitleWrapper>
             <form onSubmit={HandleSubmit}>
 
@@ -73,7 +76,6 @@ const ReservationModal = (props) => {
                         id="time" 
                         placeholder="Time" 
                     />
-                    <div>time available...</div>
                 </div>
                 <div style={{ margin: '36px 0' }}>
                     <InputLabel>Notes</InputLabel>

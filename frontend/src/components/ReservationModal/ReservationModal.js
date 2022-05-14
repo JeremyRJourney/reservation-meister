@@ -5,7 +5,6 @@ import styled from "styled-components";
 const ReservationModal = (props) => {
     const { setShowReservationList, data } = props
     const dateObj = new Date(data.reservations[0].time)
-    const ReservationDate = dateObj.getUTCHours() + ':' + ((dateObj.getUTCMinutes() < 10) ? ("0" + dateObj.getUTCMinutes()) : dateObj.getUTCMinutes())
 
     console.log(data.reservations)
 

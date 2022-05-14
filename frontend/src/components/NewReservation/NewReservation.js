@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 
 const NewReservation = (props) => {
-    const { setShowReservationCreate, selectedTable } = props
+    const { setShowReservationCreate } = props
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [tableNumber, setTableNumber] = useState("")

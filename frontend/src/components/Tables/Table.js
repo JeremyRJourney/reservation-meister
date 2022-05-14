@@ -1,15 +1,15 @@
 import styled from "styled-components"
 
 const ReservationItem = (props) => {
-    const {id} = props
+    const {data} = props
     return (
         <Item>
             <div>
-                <Table>{id}'s</Table>
+                <Table>{data.name}'s</Table>
             </div>
             <div>
-                <Title>VACANT - 4</Title>
-                <Title>OCCUPIED - 4</Title>
+                <Title>VACANT - {data.vacant}</Title>
+                <Title>OCCUPIED - {data.occupied}</Title>
             </div>
         </Item>
     )

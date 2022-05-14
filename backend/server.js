@@ -5,24 +5,31 @@ const express = require("express");
 const morgan = require("morgan");
 
 // Require the DATA
+const GetReservationList = require('./handlers/GetReservationList')
+const GetReservationTables = require('./handlers/GetReservationTables');
+const GetTableOccupancy = require("./handlers/GetTableOccupancy");
 
 express()
   // Below are methods that are included in express(). We chain them for convenience.
   // --------------------------------------------------------------------------------
 
   // This will give us will log more info to the console. see https://www.npmjs.com/package/morgan
-  .use(morgan("dev"))
+  .use(morgan("tiny"))
   .use(express.json())
 
   // Nothing to modify above this line
   // ---------------------------------
   // add new endpoints here 👇
-
+  .get("/reservations/list", GetReservationList.GetReservationList)
+  .get("/reservations/tables", GetReservationTables.GetReservationTables)
+  .get("/tables/occupancy", GetTableOccupancy.GetTableOccupancy)
   // add new endpoints here ☝️
   // ---------------------------------
   // Nothing to modify below this line
 
   // this is our catch all endpoint.
+
+
   .get("*", (req, res) => {
     res.status(404).json({
       status: 404,

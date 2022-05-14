@@ -1,27 +1,44 @@
 import styled from "styled-components"
+import { useState } from "react"
+
+import ReservationModal from "../ReservationModal"
 
 const ReservationItem = (props) => {
-    const {first_name, last_name} = props
+    const { data } = props
+
+    const [showReservationList, setShowReservationList] = useState(false)
+
 
     const GetName = () => {
-        let truncatedName = (first_name + " " + last_name).substring(0,20)
-        if (truncatedName === first_name + " " + last_name) {
+        let truncatedName = (data.firstName + " " + data.lastName).substring(0,20)
+        if (truncatedName === data.firstName + " " + data.lastName) {
             return truncatedName
         } else {
             return truncatedName+"..."
         }
     }
+    const GetTime = () => {
+        const dateObj = new Date(data.time)
+        return dateObj.getUTCHours() + ':' + ((dateObj.getUTCMinutes() < 10) ? ("0" + dateObj.getUTCMinutes()) : dateObj.getUTCMinutes())
+
+    }
     const name = GetName()
+    const time = GetTime()
 
     return (
-        <Item>
+        <>
+        <Item
+            onClick={ () => { setShowReservationList(data) } }
+        >
             <div>
-                <Table>32</Table>
+                <Table>{data.tableNumber ? data.tableNumber : undefined}</Table>
             </div>
             <div>
-                <Title>{name} - 4 Guests - 16h30</Title>
+                <Title>{name} - {data.guests} Guests - {time}</Title>
             </div>
         </Item>
+        {showReservationList && <ReservationModal setShowReservationList={setShowReservationList} data={data} style={{ position: 'fixed', zIndex: 5 }} /> }
+        </>
     )
 }
 
@@ -35,6 +52,8 @@ const Item = styled.div`
 `
 const Table = styled.div`
     background-color: #344571;
+    min-width: 20px;
+    min-height: 21px;
     padding: 16px;
     border-radius: 1000px;
     width: auto;

@@ -5,13 +5,13 @@ import styled from "styled-components"
 
 const Login = () => {
     const navigate = useNavigate()
-    const [email, setEmail] = useState("")
+    const [user, setUser] = useState("")
     const [canSubmit, setCanSubmit] = useState(false)
     const [isSubmitted, setIsSumbitted] = useState(false)
     const [isErrored, setIsErrored] = useState(false)
 
     const ValidateEmail = (e) => {
-        if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+        if (user.length < 3) {
             document.getElementById('email').style.border = "1px solid #ef4444"
             document.getElementById('email').style.color = "#ef4444"
             setCanSubmit(false)
@@ -28,7 +28,6 @@ const Login = () => {
         fetch("https://reqres.in/api/users?page=2")
             .then(res => {
                 if(res.status === 404) {
-                    console.log('err')
                     setIsSumbitted(false)
                     setIsErrored(true)
                 } else {
@@ -47,9 +46,9 @@ const Login = () => {
                     type="email"
                     id="email"
                     onBlur={ e => ValidateEmail(e)}
-                    value={email}
-                    onChange={ e => setEmail(e.target.value) }
-                    placeholder="you@example.com"
+                    value={user}
+                    onChange={ e => setUser(e.target.value) }
+                    placeholder="JeremyR"
                 />
                 <LoginBtn
                     disabled={!canSubmit}

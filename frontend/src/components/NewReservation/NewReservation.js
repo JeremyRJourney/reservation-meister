@@ -3,24 +3,32 @@ import styled from "styled-components";
 
 
 const NewReservation = (props) => {
-    const { setShowReservationCreate, tableNumber } = props
-    const [formData, setFormData] = useState({
-        firstName: "",
-        lastName: "",
-        tableNumber: tableNumber ? tableNumber : "",
-        time: "",
-        guests: "",
-        notes: ""
-    })
+    const { setShowReservationCreate, selectedTable } = props
+    const [firstName, setFirstName] = useState("")
+    const [lastName, setLastName] = useState("")
+    const [tableNumber, setTableNumber] = useState("")
+    const [time, setTime] = useState("")
+    const [guests, setGuests] = useState("")
+    const [notes, setNotes] = useState("")
+
+    const [isFormError, setIsFormError] = useState(false)
 
     const HandleSubmit = (e) => {
         e.preventDefault()
-        console.log(tableNumber)
-        setShowReservationCreate(false)
+
+        if (firstName && lastName && time && guests) {
+            setShowReservationCreate(false)
+            setIsFormError(false)
+            // TODO push to server
+        } else {
+            setIsFormError(true)
+        }
+
     }
 
 
     return (
+        <Container>
         <Wrapper>
             <TitleWrapper>
                 <Title>Create a New Reservation</Title>
@@ -32,20 +40,19 @@ const NewReservation = (props) => {
                     <div>
                         <InputLabel>* First name</InputLabel>
                         <Input
-                            onChange={ (e) => setFormData.firstName(e.target.value)}
+                            onChange={ (e) => setFirstName(e.target.value)}
                             type="text"
-                            value={formData.firstName}
+                            value={firstName}
                             name="fname" 
-                            id="fname" 
                             placeholder="First name" 
                         />
                     </div>
                     <div style={{ marginLeft: '24px' }}>
                         <InputLabel>Last name</InputLabel>
                         <Input
-                            onChange={ (e) => setFormData.lastName(e.target.value)}
+                            onChange={ (e) => setLastName(e.target.value)}
                             type="text" 
-                            value={formData.lastName}
+                            value={lastName}
                             name="lname" 
                             id="lname" 
                             placeholder="Last name" 
@@ -55,21 +62,34 @@ const NewReservation = (props) => {
                 <div style={{ margin: '16px 0' }}>
                     <InputLabel>Table number</InputLabel>
                     <Input
-                        onChange={ (e) => setFormData.tableNumber(e.target.value)}
+                        onChange={ (e) => setTableNumber(e.target.value)}
                         type="text" 
                         name="tableNumber" 
-                        value={formData.tableNumber}
+                        value={tableNumber}
                         id="tableNumber" 
                         placeholder="Table number" 
                     />
                 </div>
                 <div style={{ margin: '16px 0' }}>
+                    <InputLabel>* Guests</InputLabel>
+                    <Input
+                        onChange={ (e) => setGuests(e.target.value)}
+                        type="text" 
+                        name="guests"
+                        value={guests}
+                        id="guests" 
+                        placeholder="guests" 
+                    />
+                    <div></div>
+                </div>
+
+                <div style={{ margin: '16px 0' }}>
                     <InputLabel>* Time</InputLabel>
                     <Input
-                        onChange={ (e) => setFormData.time(e.target.value)}
+                        onChange={ (e) => setTime(e.target.value)}
                         type="text" 
                         name="time"
-                        value={formData.time}
+                        value={time}
                         id="time" 
                         placeholder="Time" 
                     />
@@ -78,29 +98,39 @@ const NewReservation = (props) => {
                 <div style={{ margin: '36px 0' }}>
                     <InputLabel>Notes</InputLabel>
                     <InputNotes
-                        onChange={ (e) => setFormData.notes(e.target.value)}
+                        onChange={ (e) => setNotes(e.target.value)}
                         type="text" 
-                        value={formData.notes}
+                        value={notes}
                         name="notes" 
                         id="notes" 
                         placeholder="Any notes about the reservation" 
                     />
                 </div>
                 <Button type="submit">Create reservation</Button>
+                {isFormError && <FormError>Required fields missing</FormError>}
 
             </form>
         </Wrapper>
+        </Container>
     )
 }
+const Container = styled.div`
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    position: absolute;
+    top: 0;
+    left: 0;
+`
 
 const Wrapper = styled.div`
     background-color: rgba(30,41,67,1);
     border: 1px solid #F1F1F1;
-    margin-left: 16px;
-    margin-top: 16px;
     box-shadow: 0 10px 15px -3px rgb(255 255 255 / 0.1), 0 4px 6px -4px rgb(255 255 255 / 0.1);
     padding: 24px;
     position: absolute;
+    top: 85px;
+    left: 395px;
     z-index: 10;
 `
 const TitleWrapper = styled.div`
@@ -148,26 +178,36 @@ const InputNotes = styled.textarea`
     min-height: 60px
 `
 const Button = styled.button`
-display: inline-flex;
-align-items: center;
-padding-left: 0.75rem; /* 12px */
-padding-right: 0.75rem; /* 12px */
-padding-top: 0.5rem; /* 8px */
-padding-bottom: 0.5rem; /* 8px */
-border: 1px solid #fff;
-font-weight: 500;
-border-radius: 0.375rem; /* 6px */
-background-color: transparent;
-color: #fff;
-font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border: 1px solid #fff;
+    font-weight: 500;
+    border-radius: 0.375rem;
+    background-color: transparent;
+    color: #fff;
+    font-size: 1rem;
 
-:hover {
-    background-color: rgba(255,255,255,1);
-    color: #000;
-    transition-property: background-color, color;
-    transition-duration: 0.25s;   
-    cursor: pointer;
-}
+    :hover {
+        background-color: rgba(255,255,255,1);
+        color: #000;
+        transition-property: background-color, color;
+        transition-duration: 0.25s;   
+        cursor: pointer;
+    }
+    :disabled {
+        background-color: rgba(200,200,200,0.4);
+        color: rgba(200,200,200,0.4);
+        border: 1px solid rgba(200,200,200,0.4);
+
+    }
+`
+const FormError = styled.div`
+    margin-top: 8px;
+    color: #ef4444
 `
 
 

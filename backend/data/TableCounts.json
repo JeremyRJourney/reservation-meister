@@ -1,0 +1,37 @@
+[
+    {
+        "name": 2,
+        "vacant": 12,
+        "occupied": 10
+    },
+    {
+        "name": 3,
+        "vacant": 132,
+        "occupied": 10
+    },
+    {
+        "name": 4,
+        "vacant": 2,
+        "occupied": 0
+    },
+    {
+        "name": 5,
+        "vacant": 12,
+        "occupied": 10
+    },
+    {
+        "name": 6,
+        "vacant": 12,
+        "occupied": 10
+    },
+    {
+        "name": 7,
+        "vacant": 12,
+        "occupied": 10
+    },
+    {
+        "name": 8,
+        "vacant": 12,
+        "occupied": 10
+    }
+]

@@ -3,52 +3,50 @@ import styled from "styled-components"
 import Table from './Table'
 
 const Tables = () => {
-    const [reservations, setReservations] = useState(null)
+    const [tables, setTables] = useState(null)
 
     useEffect(() => {
-        fetch(`https://reqres.in/api/users?page=2`)
+        fetch('tables/occupancy')
         .then((res) => {
             if (res.ok) 
                 return res.json()
             else {
                 return res
             }
-                
         })
         .then((json) => {
-            if (json.data) {
-                console.log(json.data)
-                setReservations(json.data)
+            console.log(json.data)
+
+            if (json) {
+                setTables(json)
             }
         })
     }, [])
 
     return (
         <div>
-            {!reservations && 
+            {!tables && 
                 <span className="spinner-small align"></span>
             }
             <CountList>
-                {reservations && <>
+                {tables && <>
                     <section>
                         <h1>Vacant</h1>
-                        <span style={{ fontSize: '24px' }}>{reservations.length}</span>
+                        <span style={{ fontSize: '24px' }}>{tables.data.vacant}</span>
                     </section>
                     <section>
                         <h1>Occupied</h1>
-                        <span style={{ fontSize: '24px' }}>{reservations.length}</span>
+                        <span style={{ fontSize: '24px' }}>{tables.data.occupied}</span>
                     </section>
                 </> }
             </CountList>
 
             <TableList>
-                {reservations && reservations.map(item => {
+                {tables && tables.data.list.map(item => {
                     return (
                         <Table 
                             key={item.id}
-                            first_name={item.first_name}
-                            last_name={item.last_name}
-                            id={item.id}
+                            data={item}
                         >
                         </Table>
                     )

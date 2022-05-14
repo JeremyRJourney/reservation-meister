@@ -17,8 +17,6 @@ const Table = (props) => {
         setLocationX(data.tableLocationX * document.getElementById("floor-plan").clientWidth)
         setLocationY(data.tableLocationY * document.getElementById("floor-plan").clientHeight)
 
-        console.log(document.getElementById("floor-plan").clientHeight)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const DetermineWidth = (tableType) => {
@@ -82,7 +80,7 @@ const Table = (props) => {
                     height: DetermineHeight(data.tableType),
                     borderRadius: data.tableType === 6  || data.tableType === 8 ? '1000px' : undefined
                 }}
-            >{data.tableType}</TableFigure>
+            >{data.tableName}</TableFigure>
             {showTooltip && <TableDetails
                 key={data.id}
                 data={data} 

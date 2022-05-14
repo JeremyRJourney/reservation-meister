@@ -1,0 +1,66 @@
+[
+  {
+    "id": 120,
+    "firstName": "Alfred",
+    "tableNumber": 2,
+    "lastName": "Jones 1",
+    "guests": 2,
+    "time": "2022-05-01T16:00:00.000Z"
+  },
+  {
+    "id": 121,
+    "firstName": "Alfred",
+    "lastName": "Jones 2",
+    "tableNumber": 3,
+    "guests": 2,
+    "time": "2022-05-01T20:00:00.000Z"
+  },
+  {
+    "id": 122,
+    "firstName": "Alfred",
+    "lastName": "Jones 3",
+    "tableNumber": 4,
+    "guests": 10,
+    "time": "2022-05-01T16:30:00.000Z"
+  },
+  {
+    "id": 123,
+    "firstName": "Alfred",
+    "lastName": "Jones 4",
+    "tableNumber": 5,
+    "guests": 2,
+    "time": "2022-05-01T15:00:00.000Z"
+  },
+  {
+    "id": 124,
+    "firstName": "Alfred",
+    "lastName": "Jones 5",
+    "tableNumber": 6,
+    "guests": 2,
+    "time": "2022-05-01T16:00:00.000Z"
+  },
+  {
+    "id": 125,
+    "firstName": "Alfred",
+    "lastName": "Jones 6",
+    "tableNumber": 7,
+    "guests": 5,
+    "time": "2022-05-01T17:00:00.000Z"
+  },
+  {
+    "id": 126,
+    "firstName": "Alfred",
+    "lastName": "Jones 7",
+    "tableNumber": 8,
+    "guests": 1,
+    "time": "2022-05-01T18:00:00.000Z"
+  },
+  {
+    "id": 127,
+    "firstName": "Alfred",
+    "lastName": "Jones 8",
+    "tableNumber": 10,
+    "guests": 4,
+    "time": "2022-05-01T19:00:00.000Z"
+  }
+]

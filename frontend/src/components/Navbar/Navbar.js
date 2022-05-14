@@ -4,10 +4,11 @@ import Reservation from "../Reservation/Reservation"
 import Settings from "../Settings"
 import Tables from "../Tables"
 
-const Navbar = () => {
+const Navbar = (props) => {
     const [currentNav, setCurrentNav] = useState("Reservations")
 
     return (
+        <>
         <Wrapper>
             <Nav>
                 <Logo src="/static/logo.png" />
@@ -42,11 +43,13 @@ const Navbar = () => {
             {currentNav === 'Tables' && <Tables />}
             {currentNav === 'Settings' && <Settings />}
         </Wrapper>
+        </>
     )
 }
 
 const Wrapper = styled.div`
-    width: 520px;
+    min-width: 375px;
+    max-width: 375px;
     height: 100vh;
 `
 const Nav = styled.div`

@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react'
 import styled from "styled-components"
 import ReservationItem from './ReservationItem'
+const Reservation = (props) => {
 
-const Reservation = () => {
-    const [reservations, setReservations] = useState(null)
-
-    useEffect(() => {
-        fetch(`https://reqres.in/api/users?page=2`)
+    const [data, setData] = useState([])
+    const fetchList = () => {
+        fetch('reservations/list')
         .then((res) => {
             if (res.ok) 
                 return res.json()
@@ -17,40 +16,43 @@ const Reservation = () => {
         })
         .then((json) => {
             if (json.data) {
-                setReservations(json.data)
+                setData(json.data)
             }
         })
-    }, [])
+    }
+
+    useEffect( () => {
+        fetchList()
+    },[])
 
     return (
         <div>
-            {!reservations && 
+            {!data && 
                 <span className="spinner-small align"></span>
             }
             <CountList>
-                {reservations && <>
+                {data && <>
                     <section>
                         <h1>Scheduled</h1>
-                        <span style={{ fontSize: '24px' }}>{reservations.length}</span>
+                        <span style={{ fontSize: '24px' }}>{data.length}</span>
                     </section>
                     <section>
                         <h1>Seated</h1>
-                        <span style={{ fontSize: '24px' }}>{reservations.length}</span>
+                        <span style={{ fontSize: '24px' }}>{data.length}</span>
                     </section>
                     <section>
                         <h1>Completed</h1>
-                        <span style={{ fontSize: '24px' }}>{reservations.length}</span>
+                        <span style={{ fontSize: '24px' }}>{data.length}</span>
                     </section>
                 </> }
             </CountList>
 
             <ReservationItems>
-                {reservations && reservations.map(item => {
+                {data && data.map(item => {
                     return (
-                        <ReservationItem 
+                        <ReservationItem
+                            data={item}
                             key={item.id}
-                            first_name={item.first_name}
-                            last_name={item.last_name}
                         >
                         </ReservationItem>
                     )

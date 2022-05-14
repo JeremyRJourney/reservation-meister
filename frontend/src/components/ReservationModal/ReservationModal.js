@@ -7,23 +7,27 @@ const ReservationModal = (props) => {
     const dateObj = new Date(data.reservations[0].time)
     const ReservationDate = dateObj.getUTCHours() + ':' + ((dateObj.getUTCMinutes() < 10) ? ("0" + dateObj.getUTCMinutes()) : dateObj.getUTCMinutes())
 
-    const [formData, setFormData] = useState({
-        firstName: data.reservations[0].firstName,
-        lastName: data.reservations[0].lastName,
-        tableNumber: data.reservations[0].tableNumber ? data.reservations[0].tableNumber : "",
-        time: ReservationDate,
-        guests: data.reservations[0].guests,
-        notes: data.reservations[0].notes ? data.reservations[0].notes : ""
-    })
+    console.log(data.reservations)
+
+    const [firstName, setFirstName] = useState(data.reservations[0].firstName)
+    const [lastName, setLastName] = useState(data.reservations[0].lastName)
+    const [tableNumber, setTableNumber] = useState(data.reservations[0].tableName ? data.reservations[0].tableName : "")
+    const [time, setTime] = useState(data.reservations[0].time)
+    const [guests, setGuests] = useState(data.reservations[0].guests)
+    const [notes, setNotes] = useState(data.reservations[0].notes ? data.reservations[0].notes : '')
+    const [status, setStatus] = useState(data.reservations[0].status)
 
     const HandleSubmit = (e) => {
         e.preventDefault()
-        console.log(data)
-        setShowReservationList(false)
+
+        if (firstName && lastName && time && guests) {
+            setShowReservationList(false)
+        }
     }
 
 
     return (
+        <Container>
         <Wrapper>
             <TitleWrapper>
                 <Title>Reservation list/details</Title>
@@ -35,9 +39,9 @@ const ReservationModal = (props) => {
                     <div>
                         <InputLabel>* First name</InputLabel>
                         <Input
-                            onChange={ (e) => setFormData.firstName(e.target.value)}
+                            onChange={ (e) => setFirstName(e.target.value)}
                             type="text"
-                            value={formData.firstName}
+                            value={firstName}
                             name="fname" 
                             id="fname" 
                             placeholder="First name" 
@@ -46,9 +50,9 @@ const ReservationModal = (props) => {
                     <div style={{ marginLeft: '24px' }}>
                         <InputLabel>Last name</InputLabel>
                         <Input
-                            onChange={ (e) => setFormData.lastName(e.target.value)}
+                            onChange={ (e) => setLastName(e.target.value)}
                             type="text" 
-                            value={formData.lastName}
+                            value={lastName}
                             name="lname" 
                             id="lname" 
                             placeholder="Last name" 
@@ -58,21 +62,33 @@ const ReservationModal = (props) => {
                 <div style={{ margin: '16px 0' }}>
                     <InputLabel>Table number</InputLabel>
                     <Input
-                        onChange={ (e) => setFormData.tableNumber(e.target.value)}
+                        onChange={ (e) => setTableNumber(e.target.value)}
                         type="text" 
                         name="tableNumber" 
-                        value={formData.tableNumber}
+                        value={tableNumber}
                         id="tableNumber" 
                         placeholder="Table number" 
                     />
                 </div>
                 <div style={{ margin: '16px 0' }}>
+                    <InputLabel>* Guests</InputLabel>
+                    <Input
+                        onChange={ (e) => setGuests(e.target.value)}
+                        type="text" 
+                        name="guests" 
+                        value={guests}
+                        id="guests" 
+                        placeholder="Number of guests" 
+                    />
+                </div>
+
+                <div style={{ margin: '16px 0' }}>
                     <InputLabel>* Time</InputLabel>
                     <Input
-                        onChange={ (e) => setFormData.time(e.target.value)}
+                        onChange={ (e) => setTime(e.target.value)}
                         type="text" 
                         name="time"
-                        value={formData.time}
+                        value={time}
                         id="time" 
                         placeholder="Time" 
                     />
@@ -80,27 +96,54 @@ const ReservationModal = (props) => {
                 <div style={{ margin: '36px 0' }}>
                     <InputLabel>Notes</InputLabel>
                     <InputNotes
-                        onChange={ (e) => setFormData.notes(e.target.value)}
+                        onChange={ (e) => setNotes(e.target.value)}
                         type="text" 
-                        value={formData.notes}
+                        value={notes}
                         name="notes" 
                         id="notes" 
                         placeholder="Any notes about the reservation" 
                     />
                 </div>
-                <Button type="submit">Create reservation</Button>
+                <div style={{ borderTop: '2px solid #4b5563', padding: '16px 0', marginBottom: '16px' }}>
+                    <InputLabel>Status</InputLabel>
+                    <StatusDropdown
+                        onChange={ (e) => setStatus(e.target.value)}
+                        value={status}
+                    >
+                        <option value="late">Late</option>
+                        <option value="seated">Seated</option>
+                        <option value="partiallySeated">Partially seated</option>
+                        <option value="mainCourse">Main course</option>
+                        <option value="desert">Desert</option>
+                        <option value="paid">Paid</option>
+                        <option value="vacated">Vacated</option>
+                    </StatusDropdown>
+
+                </div>
+                <Button type="submit">Update reservation</Button>
 
             </form>
         </Wrapper>
+        </Container>
     )
 }
 
+const Container = styled.div`
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    position: absolute;
+    top: 0;
+    left: 0;
+`
 const Wrapper = styled.div`
     background-color: rgba(30,41,67,1);
     border: 1px solid #F1F1F1;
     box-shadow: 0 10px 15px -3px rgb(255 255 255 / 0.1), 0 4px 6px -4px rgb(255 255 255 / 0.1);
     padding: 24px;
     position: absolute;
+    top: 85px;
+    left: 395px;
     z-index: 10;
 `
 const TitleWrapper = styled.div`
@@ -129,6 +172,15 @@ const InputLabel = styled.label`
     font-weight: 500;
 `
 const Input = styled.input`
+    filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.05));
+    display: block;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    margin-top: 8px;
+    min-width: 225px;
+`
+const StatusDropdown = styled.select`
     filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.05));
     display: block;
     padding: 8px;

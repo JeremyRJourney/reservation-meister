@@ -4,7 +4,6 @@ import styled from "styled-components";
 
 const ReservationModal = (props) => {
     const { setShowReservationList, data } = props
-    const dateObj = new Date(data.reservations[0].time)
 
     console.log(data.reservations)
 

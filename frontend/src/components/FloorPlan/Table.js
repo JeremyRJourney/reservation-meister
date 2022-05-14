@@ -13,15 +13,8 @@ const Table = (props) => {
     const [showTooltip, setShowTooltip] = useState(false)
     const [showReservationList, setShowReservationList] = useState(false)
 
-    const SetLocation = () => {
-        setLocationX(data.tableLocationX * document.getElementById("floor-plan").clientWidth)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        setLocationY(data.tableLocationY * document.getElementById("floor-plan").clientHeight)
-    }
-
-    useEffect( () => {
-        SetLocation()
-    }, [])
+    setLocationX(data.tableLocationX * document.getElementById("floor-plan").clientWidth)
+    setLocationY(data.tableLocationY * document.getElementById("floor-plan").clientHeight)
 
     const DetermineWidth = (tableType) => {
         switch (tableType) {

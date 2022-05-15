@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import styled from "styled-components"
 import ReservationModal from "../ReservationModal"
 import TableDetails from "./TableDetails"
@@ -13,8 +13,11 @@ const Table = (props) => {
     const [showTooltip, setShowTooltip] = useState(false)
     const [showReservationList, setShowReservationList] = useState(false)
 
-    setLocationX(data.tableLocationX * document.getElementById("floor-plan").clientWidth)
-    setLocationY(data.tableLocationY * document.getElementById("floor-plan").clientHeight)
+    useEffect( () => {
+        setLocationX(data.tableLocationX * document.getElementById("floor-plan").clientWidth)
+        setLocationY(data.tableLocationY * document.getElementById("floor-plan").clientHeight)
+        // eslint-disable-next-line
+    },[])
 
     const DetermineWidth = (tableType) => {
         switch (tableType) {

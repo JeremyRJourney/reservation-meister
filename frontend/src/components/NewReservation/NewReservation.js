@@ -16,7 +16,7 @@ const NewReservation = (props) => {
     const HandleSubmit = (e) => {
         e.preventDefault()
 
-        if (firstName && lastName && time && guests) {
+        if (firstName && lastName && time && guests && tableNumber) {
             setShowReservationCreate(false)
             setIsFormError(false)
             // TODO push to server
@@ -60,7 +60,7 @@ const NewReservation = (props) => {
                     </div>
                 </div>
                 <div style={{ margin: '16px 0' }}>
-                    <InputLabel>Table number</InputLabel>
+                    <InputLabel>* Table number</InputLabel>
                     <Input
                         onChange={ (e) => setTableNumber(e.target.value)}
                         type="text" 

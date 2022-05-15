@@ -10,7 +10,7 @@ const Login = () => {
     const [isSubmitted, setIsSumbitted] = useState(false)
     const [isErrored, setIsErrored] = useState(false)
 
-    const ValidateEmail = (e) => {
+    const ValidateUser = (e) => {
         if (user.length < 3) {
             document.getElementById('email').style.border = "1px solid #ef4444"
             document.getElementById('email').style.color = "#ef4444"
@@ -31,9 +31,13 @@ const Login = () => {
                     setIsSumbitted(false)
                     setIsErrored(true)
                 } else {
-                    localStorage.setItem('isAuthed', true)
-                    navigate("/")
+                    return res.json()
                 }
+            })
+            .then((json) => {
+                localStorage.setItem('isAuthed', true)
+                localStorage.setItem('userType', 'host')
+                navigate("/")
             })
     }
 
@@ -45,7 +49,7 @@ const Login = () => {
                 <Input 
                     type="email"
                     id="email"
-                    onBlur={ e => ValidateEmail(e)}
+                    onBlur={ e => ValidateUser(e)}
                     value={user}
                     onChange={ e => setUser(e.target.value) }
                     placeholder="JeremyR"

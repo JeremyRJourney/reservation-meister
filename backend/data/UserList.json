@@ -1,0 +1,37 @@
+[
+    {
+        "id": 123,
+        "firstName": "Jeremy",
+        "lastName": "Rycroft",
+        "userType": "admin",
+        "username": "JeremyR"
+    },
+    {
+        "id": 124,
+        "firstName": "Ebbe",
+        "lastName": "Vitus",
+        "userType": "manager",
+        "username": "EbbeV"
+    },
+    {
+        "id": 125,
+        "firstName": "Aleksi",
+        "lastName": "Tamara",
+        "userType": "host",
+        "username": "AleksiT"
+    },
+    {
+        "id": 126,
+        "firstName": "And",
+        "lastName": "Another",
+        "userType": "host",
+        "username": "AndA"
+    },
+    {
+        "id": 127,
+        "firstName": "TheLast",
+        "lastName": "Test",
+        "userType": "host",
+        "username": "TheT"
+    }
+]

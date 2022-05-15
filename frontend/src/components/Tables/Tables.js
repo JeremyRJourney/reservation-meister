@@ -15,8 +15,6 @@ const Tables = () => {
             }
         })
         .then((json) => {
-            console.log(json.data)
-
             if (json) {
                 setTables(json)
             }

@@ -8,6 +8,7 @@ const morgan = require("morgan");
 const GetReservationList = require('./handlers/GetReservationList')
 const GetReservationTables = require('./handlers/GetReservationTables');
 const GetTableOccupancy = require("./handlers/GetTableOccupancy");
+const GetUserList = require("./handlers/GetUserList");
 
 express()
   // Below are methods that are included in express(). We chain them for convenience.
@@ -23,6 +24,7 @@ express()
   .get("/reservations/list", GetReservationList.GetReservationList)
   .get("/reservations/tables", GetReservationTables.GetReservationTables)
   .get("/tables/occupancy", GetTableOccupancy.GetTableOccupancy)
+  .get("/users/list", GetUserList.GetUserList)
   // add new endpoints here ☝️
   // ---------------------------------
   // Nothing to modify below this line

@@ -34,8 +34,7 @@ const Main = () => {
                 return res.json()
             else {
                 return res
-            }
-                
+            }   
         })
         .then((json) => {
             if (json.data) {
@@ -50,8 +49,7 @@ const Main = () => {
                 return res.json()
             else {
                 return res
-            }
-                
+            }            
         })
         .then((json) => {
             if (json.data) {
@@ -61,7 +59,6 @@ const Main = () => {
     }
 
     const updateTables = (item) => {
-        console.log(item)
         setCurrentTables(null)
         if (item === 'Bar') {
             fetchTables('Bar')

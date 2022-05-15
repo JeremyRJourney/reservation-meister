@@ -55,6 +55,7 @@ const Table = styled.div`
     min-width: 20px;
     min-height: 21px;
     padding: 16px;
+    text-align: center;
     border-radius: 1000px;
     width: auto;
 `

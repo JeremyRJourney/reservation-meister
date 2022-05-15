@@ -8,7 +8,6 @@ import './assets/spinner.css'
 import Main from './pages/Main'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
-import Manage from './pages/Manage'
 
 function App() {
     const path = useLocation().pathname
@@ -24,7 +23,6 @@ function App() {
         <Route path="/" exact element={<Main/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/manage" element={<Manage />} />
       </Routes>
     </Wrapper>
   )

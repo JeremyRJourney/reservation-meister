@@ -5,8 +5,6 @@ import styled from "styled-components";
 const ReservationModal = (props) => {
     const { setShowReservationList, data } = props
 
-    console.log(data.reservations)
-
     const [firstName, setFirstName] = useState(data.reservations[0].firstName)
     const [lastName, setLastName] = useState(data.reservations[0].lastName)
     const [tableNumber, setTableNumber] = useState(data.reservations[0].tableName ? data.reservations[0].tableName : "")
@@ -28,7 +26,7 @@ const ReservationModal = (props) => {
         <Container>
         <Wrapper>
             <TitleWrapper>
-                <Title>Reservation list/details</Title>
+                <Title>Reservation details</Title>
                 <Close onClick={ () => setShowReservationList(false) }>✖</Close>
             </TitleWrapper>
             <form onSubmit={HandleSubmit}>

@@ -9,11 +9,7 @@ const Main = () => {
     const fetchCurrentNav = (item) => {
         navItems.forEach(navItem => {
             if (navItem === item) {
-                fetch(`https://reqres.in/api/users/2`, {
-                    headers : { 
-                      'Content-Type': 'application/json',
-                      'Accept': 'application/json'
-                     }})
+                fetch(`https://reqres.in/api/users/2`)
                 .then((res) => {
                     if (res.ok) 
                         return res.json()

@@ -25,11 +25,7 @@ const Login = () => {
     const HandleSubmit = () => {
         setIsSumbitted(true)
         setIsErrored(false)
-        fetch("https://reqres.in/api/users?page=2", {
-            headers : { 
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
-             }})
+        fetch("https://reqres.in/api/users?page=2")
             .then(res => {
                 if(res.status === 404) {
                     setIsSumbitted(false)

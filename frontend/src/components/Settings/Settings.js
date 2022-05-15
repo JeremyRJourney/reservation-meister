@@ -25,8 +25,7 @@ const Settings = () => {
             }            
         })
         .then((json) => {
-            if (json) {
-                console.log(json.data)
+            if (json.data) {
                 setUsers(json.data)
             }
         })

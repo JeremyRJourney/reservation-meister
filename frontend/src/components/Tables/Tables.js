@@ -6,7 +6,7 @@ const Tables = () => {
     const [tables, setTables] = useState(null)
 
     useEffect(() => {
-        fetch('tables/occupancy')
+        fetch('http://localhost:5000/tables/occupancy')
         .then((res) => {
             if (res.ok) 
                 return res.json()

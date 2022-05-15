@@ -12,7 +12,7 @@ const Settings = () => {
     const [showDetailsModal, setShowDetailsModal] = useState(false)
 
     const GetUserList = () => {
-        fetch('users/list')
+        fetch('http://localhost:5000/users/list')
         .then((res) => {
             if (res.ok) 
                 return res.json()

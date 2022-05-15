@@ -5,7 +5,7 @@ const Reservation = (props) => {
 
     const [data, setData] = useState([])
     const fetchList = () => {
-        fetch('reservations/list')
+        fetch('http://localhost:5000/reservations/list')
         .then((res) => {
             if (res.ok) 
                 return res.json()

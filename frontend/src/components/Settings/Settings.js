@@ -12,7 +12,11 @@ const Settings = () => {
     const [showDetailsModal, setShowDetailsModal] = useState(false)
 
     const GetUserList = () => {
-        fetch('users/list')
+        fetch('users/list', {
+            headers : { 
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+             }})
         .then((res) => {
             if (res.ok) 
                 return res.json()

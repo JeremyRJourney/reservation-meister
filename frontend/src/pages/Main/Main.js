@@ -9,7 +9,11 @@ const Main = () => {
     const fetchCurrentNav = (item) => {
         navItems.forEach(navItem => {
             if (navItem === item) {
-                fetch(`https://reqres.in/api/users/2`)
+                fetch(`https://reqres.in/api/users/2`, {
+                    headers : { 
+                      'Content-Type': 'application/json',
+                      'Accept': 'application/json'
+                     }})
                 .then((res) => {
                     if (res.ok) 
                         return res.json()
@@ -28,7 +32,11 @@ const Main = () => {
     }
 
     const fetchList = () => {
-        fetch('reservations/list')
+        fetch('reservations/list', {
+            headers : { 
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+             }})
         .then((res) => {
             if (res.ok) 
                 return res.json()
@@ -43,7 +51,11 @@ const Main = () => {
         })
     }
     const fetchTables = (sectionName) => {
-        fetch(`reservations/tables?sectionName=${sectionName}`)
+        fetch(`reservations/tables?sectionName=${sectionName}`, {
+            headers : { 
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+             }})
         .then((res) => {
             if (res.ok) 
                 return res.json()

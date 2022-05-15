@@ -5,7 +5,11 @@ const Reservation = (props) => {
 
     const [data, setData] = useState([])
     const fetchList = () => {
-        fetch('reservations/list')
+        fetch('reservations/list', {
+            headers : { 
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+             }})
         .then((res) => {
             if (res.ok) 
                 return res.json()

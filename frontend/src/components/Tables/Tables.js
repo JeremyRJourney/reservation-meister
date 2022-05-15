@@ -6,7 +6,11 @@ const Tables = () => {
     const [tables, setTables] = useState(null)
 
     useEffect(() => {
-        fetch('tables/occupancy')
+        fetch('tables/occupancy', {
+            headers : { 
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+             }})
         .then((res) => {
             if (res.ok) 
                 return res.json()

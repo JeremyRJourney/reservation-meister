@@ -44,7 +44,7 @@ const ReservationModal = (props) => {
                         />
                     </div>
                     <div style={{ marginLeft: '24px' }}>
-                        <InputLabel>Last name</InputLabel>
+                        <InputLabel>* Last name</InputLabel>
                         <Input
                             onChange={ (e) => setLastName(e.target.value)}
                             type="text" 

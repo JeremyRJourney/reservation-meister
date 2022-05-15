@@ -49,15 +49,22 @@ const Table = (props) => {
     }
     const DetermineTableColor = (tableStatus) => {
         switch (tableStatus) {
-            case 'vacant':
-                return "rgba(107,114,128,0.75)"
-            case 'occupied':
+            case 'late':
+                return "rgba(220,38,38,0.75)"
+            case 'seated':
                 return "rgba(6,182,212,0.75)"
-            case 'reset':
+            case 'partiallySeated':
+                return "rgba(2,132,199,0.75)"
+            case 'mainCourse':
+                return "rgba(234,179,8,0.75)"
+            case 'desert':
+                return "rgba(124,58,237,0.75)"
+            case 'paid':
+                return "rgba(236,72,153,0.75)"
+            case 'vacated':
                 return "rgba(14,159,110,0.75)"
             default:
                 return "rgba(107,114,128,0.75)"
-
         }
     }
 
@@ -75,7 +82,7 @@ const Table = (props) => {
                 onMouseLeave={() => setShowTooltip(false) }
                 onClick={ () => { setShowReservationList(data) } }
                 style={{ 
-                    backgroundColor: DetermineTableColor(data.tableStatus),
+                    backgroundColor: DetermineTableColor(data.status),
                     width: DetermineWidth(data.tableType),
                     height: DetermineHeight(data.tableType),
                     borderRadius: data.tableType === 6  || data.tableType === 8 ? '1000px' : undefined

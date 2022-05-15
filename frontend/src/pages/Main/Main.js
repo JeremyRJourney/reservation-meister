@@ -8,8 +8,9 @@ import FloorPlan from '../../components/FloorPlan'
 const Main = () => {
 
     const fetchList = () => {
-        fetch('reservations/list')
+        fetch(`http://localhost:5000/reservations/list`)
         .then((res) => {
+            console.log(res)
             if (res.ok) 
                 return res.json()
             else {
@@ -23,7 +24,7 @@ const Main = () => {
         })
     }
     const fetchTables = (sectionName) => {
-        fetch(`reservations/tables?sectionName=${sectionName}`)
+        fetch(`http://localhost:5000/reservations/tables?sectionName=${sectionName}`)
         .then((res) => {
             if (res.ok) 
                 return res.json()

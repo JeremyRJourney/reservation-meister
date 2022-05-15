@@ -1,9 +1,10 @@
 import { useState } from "react"
 import styled from "styled-components"
 import NewReservation from "../NewReservation"
+import Help from "./Help"
 
 const Header = (props) => {
-    const { currentNav, setCurrentNav, fetchCurrentNav, updateTables } = props
+    const { currentNav, setCurrentNav, updateTables } = props
     const [navItems] = useState(['Bar','Gallery', 'Lounge'])
     const [showReservationCreate, setShowReservationCreate] = useState(false)
 
@@ -20,7 +21,7 @@ const Header = (props) => {
                     return (
                         <Item
                             key={item}
-                            onClick={e => { setCurrentNav(item); fetchCurrentNav(item); updateTables(item) }}
+                            onClick={e => { setCurrentNav(item); updateTables(item) }}
                             style={ item === currentNav ? { borderBottom: '2px solid #FFF' } : {} }
                         >
                             <h1>{ item }</h1>
@@ -37,9 +38,12 @@ const Header = (props) => {
                 <DateItem>
                     {today}
                 </DateItem>
+                <HelpSection>
+                    <Help />
+                </HelpSection>
                 </div>
             </ListWrapper>
-            {showReservationCreate && <NewReservation setShowReservationCreate={setShowReservationCreate} style={{ position: 'fixed', zIndex: 5 }} /> }
+            {showReservationCreate && <NewReservation currentNav={currentNav} updateTables={updateTables} setShowReservationCreate={setShowReservationCreate} style={{ position: 'fixed', zIndex: 5 }} /> }
 
         </div>
     )
@@ -80,6 +84,16 @@ const DateItem = styled.li`
     border: 1px solid #6b7280;
     padding: 8px 24px;
     margin-bottom: 4px;
+    margin-right: 8px;
 `
+const HelpSection = styled.li`
+    margin-left: 16px;
+    list-style: none;
+    font-size: 14px;
+    border: 1px solid #6b7280;
+    padding: 8px 16px;
+    margin-bottom: 4px;
+`
+
 
 export default Header

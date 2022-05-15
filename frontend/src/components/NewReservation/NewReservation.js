@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 
 const NewReservation = (props) => {
-    const { setShowReservationCreate } = props
+    const { setShowReservationCreate, updateTables, currentNav } = props
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [tableNumber, setTableNumber] = useState("")
@@ -19,7 +19,9 @@ const NewReservation = (props) => {
         if (firstName && lastName && time && guests && tableNumber) {
             setShowReservationCreate(false)
             setIsFormError(false)
+            updateTables(currentNav)
             // TODO push to server
+            // TODO Then reload page
         } else {
             setIsFormError(true)
         }
@@ -48,7 +50,7 @@ const NewReservation = (props) => {
                         />
                     </div>
                     <div style={{ marginLeft: '24px' }}>
-                        <InputLabel>Last name</InputLabel>
+                        <InputLabel>* Last name</InputLabel>
                         <Input
                             onChange={ (e) => setLastName(e.target.value)}
                             type="text" 

@@ -29,7 +29,7 @@ const Details = (props) => {
                         />
                     </div>
                     <div style={{ marginLeft: '24px' }}>
-                        <InputLabel>Last name</InputLabel>
+                        <InputLabel>* Last name</InputLabel>
                         <Input
                             type="text" 
                             value={data.lastName}

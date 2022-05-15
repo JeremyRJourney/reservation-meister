@@ -32,7 +32,7 @@ const Login = () => {
                     setIsErrored(true)
                 } else {
                     localStorage.setItem('isAuthed', true)
-                    localStorage.setItem('userType', 'host')
+                    localStorage.setItem('userType', 'admin')
                     navigate("/")
     
                 }

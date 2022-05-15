@@ -25,17 +25,29 @@ const Login = () => {
     const HandleSubmit = () => {
         setIsSumbitted(true)
         setIsErrored(false)
-        fetch("https://reqres.in/api/users?page=2")
+        fetch("http://localhost:5000/users/signin", {
+            method: 'POST',
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",    
+            },
+            body: JSON.stringify({
+                username: user
+            })
+        })
             .then(res => {
-                if(res.status === 404) {
+                console.log(res)
+                if (res.status === 200)
+                    return res.json()
+                else {
                     setIsSumbitted(false)
                     setIsErrored(true)
-                } else {
-                    localStorage.setItem('isAuthed', true)
-                    localStorage.setItem('userType', 'admin')
-                    navigate("/")
-    
                 }
+            })
+            .then((json) => {
+                localStorage.setItem('isAuthed', json.data.isAuthed)
+                localStorage.setItem('userType', json.data.userType)
+                navigate("/")
             })
     }
 
@@ -58,6 +70,11 @@ const Login = () => {
                 >
                     Sign In
                 </LoginBtn>
+                <Logins>
+                    <p>Admin (Can do all): <span>admin</span></p>
+                    <p>Manager (All but user manage): <span>manager</span></p>
+                    <p>Host (Can update reservations): <span>host</span></p>
+                </Logins>
                 {isSubmitted && 
                 <div className="overlay">
                     <div className="overlay__inner">
@@ -81,6 +98,16 @@ const Wrapper = styled.div`
     min-height: 100vh;
     color: #f3f4f6;
   
+`
+const Logins = styled.div`
+    margin-top: 16px;
+    color: #6b7280;
+    font-size: 14px;
+
+    span {
+        font-weight: bold;
+        color: #e5e7eb;
+    }
 `
 const Container = styled.div`
     padding: 24px 48px;

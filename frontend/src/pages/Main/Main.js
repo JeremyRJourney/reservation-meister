@@ -6,33 +6,9 @@ import FloorPlan from '../../components/FloorPlan'
 
 
 const Main = () => {
-    const fetchCurrentNav = (item) => {
-        navItems.forEach(navItem => {
-            if (navItem === item) {
-                fetch(`https://reqres.in/api/users/2`)
-                .then((res) => {
-                    if (res.ok) 
-                        return res.json()
-                    else {
-                        return res
-                    }
-                        
-                })
-                .then((json) => {
-                    if (json.data) {
-                    }
-                })
-        
-            }
-        })
-    }
 
     const fetchList = () => {
-        fetch('reservations/list', {
-            headers : { 
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
-             }})
+        fetch('reservations/list')
         .then((res) => {
             if (res.ok) 
                 return res.json()
@@ -47,11 +23,7 @@ const Main = () => {
         })
     }
     const fetchTables = (sectionName) => {
-        fetch(`reservations/tables?sectionName=${sectionName}`, {
-            headers : { 
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
-             }})
+        fetch(`reservations/tables?sectionName=${sectionName}`)
         .then((res) => {
             if (res.ok) 
                 return res.json()
@@ -97,7 +69,6 @@ const Main = () => {
                     <Header  
                         currentNav={currentNav}
                         setCurrentNav={setCurrentNav}
-                        fetchCurrentNav={fetchCurrentNav}
                         updateTables={updateTables}
                     />
                     <div style={{ padding: '48px' }}>

@@ -8,17 +8,26 @@ const morgan = require("morgan");
 const GetReservationList = require('./handlers/GetReservationList')
 const GetReservationTables = require('./handlers/GetReservationTables');
 const GetTableOccupancy = require("./handlers/GetTableOccupancy");
-const GetUserList = require("./handlers/GetUserList");
+//const GetUserList = require("./handlers/GetUserList");
 
 express()
   // Below are methods that are included in express(). We chain them for convenience.
   // --------------------------------------------------------------------------------
-
+  .use(function(req, res, next) {
+    res.header(
+      'Access-Control-Allow-Methods',
+      'OPTIONS, HEAD, GET, PUT, POST, DELETE'
+    );
+    res.header(
+      'Access-Control-Allow-Headers',
+      'Origin, X-Requested-With, Content-Type, Accept'
+    );
+    next();
+  })
   // This will give us will log more info to the console. see https://www.npmjs.com/package/morgan
   .use(morgan("tiny"))
   .use(express.json())
 
-  .use(express.static(__dirname))
 
   // Nothing to modify above this line
   // ---------------------------------
@@ -26,7 +35,7 @@ express()
   .get("/reservations/list", GetReservationList.GetReservationList)
   .get("/reservations/tables", GetReservationTables.GetReservationTables)
   .get("/tables/occupancy", GetTableOccupancy.GetTableOccupancy)
-  .get("/users/list", GetUserList.GetUserList)
+  //.get("/users/list", GetUserList.GetUserList)
   // add new endpoints here ☝️
   // ---------------------------------
   // Nothing to modify below this line

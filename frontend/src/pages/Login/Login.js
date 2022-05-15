@@ -31,13 +31,11 @@ const Login = () => {
                     setIsSumbitted(false)
                     setIsErrored(true)
                 } else {
-                    return true
+                    localStorage.setItem('isAuthed', true)
+                    localStorage.setItem('userType', 'host')
+                    navigate("/")
+    
                 }
-            })
-            .then((json) => {
-                localStorage.setItem('isAuthed', true)
-                localStorage.setItem('userType', 'host')
-                navigate("/")
             })
     }
 

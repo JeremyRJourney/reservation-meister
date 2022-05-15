@@ -11,6 +11,15 @@ const GetReservationList = require('./handlers/GetReservationList')
 const GetReservationTables = require('./handlers/GetReservationTables');
 const GetTableOccupancy = require("./handlers/GetTableOccupancy");
 const GetUserList = require("./handlers/GetUserList");
+const SignIn = require('./handlers/SignIn')
+const SignUp = require('./handlers/Signup')
+const SignOut = require('./handlers/SignOut')
+const UpdateUser = require('./handlers/UpdateUser')
+const UpdateReservation = require('./handlers/UpdateReservation')
+const CreateReservation = require('./handlers/CreateReservation')
+const CreateUser = require('./handlers/CreateUser')
+const DeleteUser = require('./handlers/DeleteUser')
+const DeleteReservation = require('./handlers/DeleteReservation')
 
 express()
   // Below are methods that are included in express(). We chain them for convenience.
@@ -18,9 +27,7 @@ express()
   .use(cors())
   // This will give us will log more info to the console. see https://www.npmjs.com/package/morgan
   .use(morgan("tiny"))
-  .use(express.static("./server/assets"))
   .use(express.json())
-  .use(express.urlencoded({ extended: false }))
 
 
   // Nothing to modify above this line
@@ -30,6 +37,18 @@ express()
   .get("/reservations/tables", GetReservationTables.GetReservationTables)
   .get("/tables/occupancy", GetTableOccupancy.GetTableOccupancy)
   .get("/users/list", GetUserList.GetUserList)
+  .get("/users/signout", SignOut.SignOut)
+
+  .post("/users/signin", SignIn.SignIn)
+  .post("/users/signup/:uid", SignUp.SignUp)
+  .post("/users/:id", UpdateUser.UpdateUser)
+  .post("/reservations/:id", UpdateReservation.UpdateReservation)
+  .post("/reservations/create", CreateReservation.CreateReservation)
+  .post("/users/create", CreateUser.CreateUser)
+
+  .delete("/users/:id", DeleteUser.DeleteUser)
+  .delete("/reservations/:id", DeleteReservation.DeleteReservation)
+  
   // add new endpoints here ☝️
   // ---------------------------------
   // Nothing to modify below this line

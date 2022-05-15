@@ -18,6 +18,8 @@ express()
   .use(morgan("tiny"))
   .use(express.json())
 
+  .use(express.static(__dirname))
+
   // Nothing to modify above this line
   // ---------------------------------
   // add new endpoints here 👇

@@ -31,7 +31,7 @@ const Login = () => {
                     setIsSumbitted(false)
                     setIsErrored(true)
                 } else {
-                    return res.json()
+                    return true
                 }
             })
             .then((json) => {

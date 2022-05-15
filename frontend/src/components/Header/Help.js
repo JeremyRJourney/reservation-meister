@@ -53,9 +53,17 @@ const Help = () => {
         )
     }
 
+    const UpdateReservation = () => {
+        return (
+            <div style={{ maxWidth: '475px' }}>
+                Updating a current reservation, click on the table assigned to the reservation and update the name, time, and status of the reservation
+            </div>
+        )
+    }
+
     return (
         <div>
-            <h1 onClick={ () => setShowHelpModal(true)}>?</h1>
+            <HelpIcon onClick={ () => setShowHelpModal(true)}>?</HelpIcon>
             {showHelpModal && <div>
                 <Container>
                     <Wrapper>
@@ -71,6 +79,10 @@ const Help = () => {
                         <SectionWrapper>
                             <SectionTitle>New Reserve</SectionTitle>
                             <NewReservations/>
+                        </SectionWrapper>
+                        <SectionWrapper>
+                            <SectionTitle>Update Reservation</SectionTitle>
+                            <UpdateReservation/>
                         </SectionWrapper>
                     </Wrapper>
                 </Container>
@@ -89,6 +101,11 @@ const Container = styled.div`
     position: absolute;
     top: 0;
     left: 0;
+`
+const HelpIcon = styled.h1`
+    :hover {
+        cursor: pointer
+    }
 `
 const Wrapper = styled.div`
     background-color: rgba(30,41,67,1);

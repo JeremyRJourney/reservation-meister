@@ -10,7 +10,6 @@ const Main = () => {
     const fetchList = () => {
         fetch(`http://localhost:5000/reservations/list`)
         .then((res) => {
-            console.log(res)
             if (res.ok) 
                 return res.json()
             else {

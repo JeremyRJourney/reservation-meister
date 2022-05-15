@@ -12,6 +12,7 @@ const GetReservationTables = require('./handlers/GetReservationTables');
 const GetTableOccupancy = require("./handlers/GetTableOccupancy");
 const GetUserList = require("./handlers/GetUserList");
 const SignIn = require('./handlers/SignIn')
+const GetTables = require('./handlers/GetTables')
 const SignUp = require('./handlers/Signup')
 const SignOut = require('./handlers/SignOut')
 const UpdateUser = require('./handlers/UpdateUser')
@@ -36,6 +37,7 @@ express()
   .get("/reservations/list", GetReservationList.GetReservationList)
   .get("/reservations/tables", GetReservationTables.GetReservationTables)
   .get("/tables/occupancy", GetTableOccupancy.GetTableOccupancy)
+  .get("/tables", GetTables.GetTables)
   .get("/users/list", GetUserList.GetUserList)
   .get("/users/signout", SignOut.SignOut)
 

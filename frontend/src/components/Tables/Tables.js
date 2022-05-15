@@ -3,7 +3,8 @@ import styled from "styled-components"
 import Table from './Table'
 
 const Tables = () => {
-    const [tables, setTables] = useState(null)
+    const [vacantTables, setVacantTables] = useState(null)
+    const [occupiedTables, setOccipiedTables] = useState(null)
 
     useEffect(() => {
         fetch('http://localhost:5000/tables/occupancy')
@@ -16,54 +17,69 @@ const Tables = () => {
         })
         .then((json) => {
             if (json) {
-                setTables(json)
+                setVacantTables(json.data.vacant)
+                setOccipiedTables(json.data.occupied)
             }
         })
     }, [])
 
     return (
         <div>
-            {!tables && 
+            {!vacantTables && 
                 <span className="spinner-small align"></span>
             }
             <CountList>
-                {tables && <>
+                {vacantTables && <>
                     <section>
-                        <h1>Vacant</h1>
-                        <span style={{ fontSize: '24px' }}>{tables.data.vacant}</span>
+                        <Title>Vacant</Title>
+                        <TableList>
+                            {vacantTables && vacantTables.map(item => {
+                                return (
+                                    <Table 
+                                        key={item[0]}
+                                        data={item}
+                                    >
+                                    </Table>
+                                )
+                            }
+                            )}
+
+                        </TableList>
                     </section>
-                    <section>
-                        <h1>Occupied</h1>
-                        <span style={{ fontSize: '24px' }}>{tables.data.occupied}</span>
+                    <section style={{ marginTop: '24px' }}>
+                        <Title>Occupied</Title>
+                        <TableList>
+                            {occupiedTables && occupiedTables.map(item => {
+                                return (
+                                    <Table 
+                                        key={item[0]}
+                                        data={item}
+                                    >
+                                    </Table>
+                                )
+                            }
+                            )}
+
+                        </TableList>
                     </section>
                 </> }
             </CountList>
 
-            <TableList>
-                {tables && tables.data.list.map(item => {
-                    return (
-                        <Table 
-                            key={item.id}
-                            data={item}
-                        >
-                        </Table>
-                    )
-                }
-                )}
-
-            </TableList>
         </div>
     )
 }
 
 const CountList = styled.div`
-    display: flex;
-    text-align: center;
-    justify-content: space-around;
     padding: 16px 8px;
-    border-bottom: 1px solid #6b7280;
 `
 const TableList = styled.div`
+`
+
+const Title = styled.h1`
+    margin-bottom: 8px;
+    margin-left: 6px;
+    font-size: 18px;
+    font-weight: 600;
 `
 
 export default Tables

@@ -2,14 +2,14 @@ import styled from "styled-components"
 
 const ReservationItem = (props) => {
     const {data} = props
+    console.log(data)
     return (
         <Item>
             <div>
-                <Table>{data.name}'s</Table>
+                <Table>{data[0]}'s</Table>
             </div>
             <div>
-                <Title>VACANT - {data.vacant}</Title>
-                <Title>OCCUPIED - {data.occupied}</Title>
+                <Title>{data[1]}</Title>
             </div>
         </Item>
     )
@@ -25,15 +25,15 @@ const Item = styled.div`
 `
 const Table = styled.div`
     background-color: #344571;
-    padding: 12px;
+    padding: 8px;
     border-radius: 1000px;
-    font-size: 20px
+    font-size: 16px
 `
 const Title = styled.h1`
     padding-left: 8px;
     margin-top: 6px;
     color: #d1d5db;
-    font-size: 14px;
+    font-size: 22px;
 `
 
 export default ReservationItem

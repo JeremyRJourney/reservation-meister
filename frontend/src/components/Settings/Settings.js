@@ -41,9 +41,12 @@ const Settings = () => {
                     </SectionTitle>
                     <Button onClick={ () => setShowNewModal(true)}>New</Button>
                 </TitleContainer>
+                {!users && 
+                    <span className="spinner-small align"></span>
+                }
                 {users && users.map(item => {
                     return (
-                        <>
+                        <div key={item.id}>
                         <User 
                             style={{ paddingBottom: '8px', borderBottom: '2px solid #6b7280' }}
                             onClick={ () => { setSelectedUser(item); setShowDetailsModal(true) } }
@@ -59,7 +62,7 @@ const Settings = () => {
                             </div>
                         </User>
                         {showDetailsModal && <Details setShowDetailsModal={setShowDetailsModal} data={selectedUser} style={{ position: 'fixed', zIndex: 5 }} /> }
-                        </>
+                        </div>
                     )
                 }) }
             </UsersContainer>

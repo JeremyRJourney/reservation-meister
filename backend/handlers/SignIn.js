@@ -12,7 +12,6 @@ const options = {
   
 
 exports.SignIn = async (req, res) => {
-    console.log(req.body)
     const client = new MongoClient(MONGO_URI, options);
     try {
         const username = (req.body.username).toLowerCase()

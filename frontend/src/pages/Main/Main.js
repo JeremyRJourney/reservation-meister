@@ -8,7 +8,7 @@ import FloorPlan from '../../components/FloorPlan'
 const Main = () => {
 
     const fetchList = () => {
-        fetch(`http://127.0.0.1:5000/reservations/list`)
+        fetch(`http://localhost:5000/reservations/list`)
         .then((res) => {
             if (res.ok) 
                 return res.json()

@@ -13,22 +13,14 @@ const Signup = (props) => {
     const [isErrored, setIsErrored] = useState(false)
     const [isSubmitted, setIsSumbitted] = useState(false)
 
-    const HandleSubmit = () => {
-        setIsSumbitted(true)
-        fetch("https://reqres.in/api/users?page=2")
-            .then(res => {
-                console.log("submit")
-                if(res.status === 404) {
-                    console.log('err')
-                    setIsSumbitted(false)
-                } else {
-                    localStorage.setItem('isAuthed', true)
-                    navigate("/")
-                }
-            })
+    const HandleSubmit = (e) => {
+        localStorage.setItem('isAuthed', true)
+        localStorage.setItem('userType', userInfo.userType)
+        navigate('/')
     }
+
     useEffect(() => {
-        fetch(`https://reqres.in/api/users/${uid}?delay=1`)
+        fetch(`http://localhost:5000/users/signup/${uid}`)
             .then((res) => {
                 if (res.ok) 
                     return res.json()
@@ -66,8 +58,8 @@ const Signup = (props) => {
                         {userInfo && <>
                             <span style={{ paddingBottom: '8px' }}>{userInfo.first_name} {userInfo.last_name}</span>
                             <div style={{ paddingTop: '16px', paddingBottom: '8px' }}>
-                            <WelcomeLabal>Please use the email below to sign-in</WelcomeLabal>
-                            <Email>{userInfo.email}</Email>
+                            <WelcomeLabal>Please use the username below to sign-in</WelcomeLabal>
+                            <Email>{userInfo.username}</Email>
                             </div>
                             </>
                         }

@@ -67,7 +67,6 @@ const Table = (props) => {
                 return "rgba(107,114,128,0.75)"
         }
     }
-
     return(
         <>
         <Wrapper
@@ -94,7 +93,7 @@ const Table = (props) => {
             />
             }
         </Wrapper>
-        {showReservationList && <ReservationModal setShowReservationList={setShowReservationList} data={data} style={{ position: 'fixed', zIndex: 5 }} /> }
+        {data.firstName && showReservationList && <ReservationModal setShowReservationList={setShowReservationList} data={data} style={{ position: 'fixed', zIndex: 5 }} /> }
         </>
     )
 }

@@ -17,16 +17,36 @@ exports.GetTables = async (req, res) => {
     try {
         await client.connect();
         const db = client.db("project");
-        console.log(req.query.section)
         if (req.query.section) {
+            // Get Tables & Reservations
             const tables = await db.collection("tables").find({ section: req.query.section}).toArray();
-            if (tables) {
+            const reservations = await db.collection("reservations").find({ section: req.query.section}).toArray();
+            if (tables && reservations) {
+                const toReturn = []
+                tables.forEach(table => {
+                    let isReserveFound = false
+                    reservations.forEach(reserve => {
+                        if (table.tableName === reserve.tableName) {
+                            isReserveFound = true
+                            toReturn.push({
+                                ...table,
+                                isOccupied: true
+                            })
+                        }
+                    });
+                    if (!isReserveFound) {
+                        toReturn.push({
+                            ...table,
+                            isOccupied: false
+                        })
+                    }                
+                });
                 res.status(200).json({
-                    data: tables
+                    data: toReturn
                 })
             } else {
                 res.status(404).json({
-                    message: "tables not found"
+                    message: "Error, not found"
                 })
             }
         } else {

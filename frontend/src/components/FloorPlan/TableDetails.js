@@ -22,12 +22,11 @@ const TableDetails = (props) => {
 
     const DisplayReservation = (reservation) => {
         const data = reservation.reservation
-
-        const dateObj = new Date(data.reservations[0].time)
-        const ReservationDate = dateObj.getUTCHours() + ':' + ((dateObj.getUTCMinutes() < 10) ? ("0" + dateObj.getUTCMinutes()) : dateObj.getUTCMinutes())
+        const dateObj = new Date(data.time)
+        const ReservationDate = dateObj.getHours() + ':' + ((dateObj.getUTCMinutes() < 10) ? ("0" + dateObj.getUTCMinutes()) : dateObj.getUTCMinutes())
         return (
             <>
-            <div key={data.reservations[0].id}>{data.reservations[0].firstName} {data.reservations[0].lastName} &#8226; {data.reservations[0].guests} guests &#8226; {ReservationDate}</div>
+            <div key={data._id}>{data.firstName} {data.lastName} &#8226; {data.guests} guests &#8226; {ReservationDate}</div>
             <div style={{textTransform: 'capitalize'}}>{data.status}</div>
             </>
         )
@@ -42,9 +41,10 @@ const TableDetails = (props) => {
             }}
         >
             <Title>Reservations</Title>
-            {data.reservations && data.reservations.length === 1 && 
+            {data.firstName && 
                 <DisplayReservation reservation={data} />
             }
+            {!data.firstName && <Title>None</Title>}
         </Wrapper>
     )
 }

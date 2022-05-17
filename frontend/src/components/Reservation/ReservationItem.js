@@ -19,11 +19,12 @@ const ReservationItem = (props) => {
     }
     const GetTime = () => {
         const dateObj = new Date(data.time)
-        return dateObj.getUTCHours() + ':' + ((dateObj.getUTCMinutes() < 10) ? ("0" + dateObj.getUTCMinutes()) : dateObj.getUTCMinutes())
+        return dateObj.getHours() + ':' + ((dateObj.getMinutes() < 10) ? ("0" + dateObj.getMinutes()) : dateObj.getMinutes())
 
     }
     const name = GetName()
     const time = GetTime()
+
 
     return (
         <>
@@ -31,10 +32,11 @@ const ReservationItem = (props) => {
             onClick={ () => { setShowReservationList(data) } }
         >
             <div>
-                <Table>{data.tableNumber ? data.tableNumber : undefined}</Table>
+                <Table>{data.tableName ? data.tableName : undefined}</Table>
             </div>
             <div>
-                <Title>{name} - {data.guests} Guests - {time}</Title>
+            <Title>{name} - {data.guests} Guests - {time}</Title>
+            <Title>{data.notes.length > 35 ? data.notes.substring(0,35) + "..." : data.notes} </Title>
             </div>
         </Item>
         {showReservationList && <ReservationModal setShowReservationList={setShowReservationList} data={data} style={{ position: 'fixed', zIndex: 5 }} /> }

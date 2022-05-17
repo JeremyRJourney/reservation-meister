@@ -5,13 +5,19 @@ import styled from "styled-components";
 const ReservationModal = (props) => {
     const { setShowReservationList, data } = props
 
-    const [firstName, setFirstName] = useState(data.reservations[0].firstName)
-    const [lastName, setLastName] = useState(data.reservations[0].lastName)
-    const [tableNumber, setTableNumber] = useState(data.reservations[0].tableName ? data.reservations[0].tableName : "")
-    const [time, setTime] = useState(data.reservations[0].time)
-    const [guests, setGuests] = useState(data.reservations[0].guests)
-    const [notes, setNotes] = useState(data.reservations[0].notes ? data.reservations[0].notes : '')
-    const [status, setStatus] = useState(data.reservations[0].status)
+    const GetTime = () => {
+        const dateObj = new Date(data.time)
+        return dateObj.getHours() + ':' + ((dateObj.getMinutes() < 10) ? ("0" + dateObj.getMinutes()) : dateObj.getMinutes())
+    }
+
+
+    const [firstName, setFirstName] = useState(data.firstName)
+    const [lastName, setLastName] = useState(data.lastName)
+    const [tableNumber, setTableNumber] = useState(data.tableName ? data.tableName : "")
+    const [time, setTime] = useState(GetTime(data.time))
+    const [guests, setGuests] = useState(data.guests)
+    const [notes, setNotes] = useState(data.notes ? data.notes : '')
+    const [status, setStatus] = useState(data.status)
 
     const HandleSubmit = (e) => {
         e.preventDefault()

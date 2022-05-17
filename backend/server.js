@@ -5,6 +5,7 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 
+const router = express.Router();
 
 // Require the DATA
 const GetReservationList = require('./handlers/GetReservationList')
@@ -20,11 +21,19 @@ const UpdateReservation = require('./handlers/UpdateReservation')
 const CreateReservation = require('./handlers/CreateReservation')
 const CreateUser = require('./handlers/CreateUser')
 const DeleteUser = require('./handlers/DeleteUser')
-const DeleteReservation = require('./handlers/DeleteReservation')
+const DeleteReservation = require('./handlers/DeleteReservation');
 
 express()
   // Below are methods that are included in express(). We chain them for convenience.
   // --------------------------------------------------------------------------------
+  .use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    next();
+  })
   .use(cors())
   // This will give us will log more info to the console. see https://www.npmjs.com/package/morgan
   .use(morgan("tiny"))
@@ -40,10 +49,10 @@ express()
   .get("/tables", GetTables.GetTables)
   .get("/users/list", GetUserList.GetUserList)
   .get("/users/signout", SignOut.SignOut)
+  .get("/users/signup/:id", SignUp.SignUp)
 
   .post("/users/signin", SignIn.SignIn)
-  .post("/users/signup/:uid", SignUp.SignUp)
-  .post("/users/:id", UpdateUser.UpdateUser)
+  .post("/us/:id", UpdateUser.UpdateUser)
   .post("/reservations/:id", UpdateReservation.UpdateReservation)
   .post("/reservations/create", CreateReservation.CreateReservation)
   .post("/users/create", CreateUser.CreateUser)

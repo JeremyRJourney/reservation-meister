@@ -16,34 +16,43 @@ exports.GetTableOccupancy = async (req, res) => {
     try {
         await client.connect();
         const db = client.db("project");
+        const reservations = await db.collection("reservations").find().toArray();
         const tables = await db.collection("tables").find().toArray();
-        if (tables) {
-            const toReturnVacant = {}
-            const toReturnOccupied = {}
+        if (tables && reservations) {
+                const toReturnVacant = {}
+                const toReturnOccupied = {}
 
-            tables.forEach(element => {
-                if (toReturnVacant[element.tableType]) {
-                    if (!element.isOccupied)
-                        toReturnVacant[element.tableType] += 1
-                    else
-                        toReturnOccupied[element.tableType] += 1
-                }
-                else {
-                    if (!element.isOccupied)
-                        toReturnVacant[element.tableType] = 1
-                    else
-                        toReturnOccupied[element.tableType] = 1
-                }
-            });
+                tables.forEach(element => {
+                    let isTableOccupied = false
+                    reservations.forEach(reserve => {
+                        // If the table is reserved add it to reserved list
+                        if (reserve.tableName === element.tableName) {
+                            isTableOccupied = true
+                            if (toReturnOccupied[element.tableType]) {
+                                toReturnOccupied[element.tableType] += 1
+                            } else {
+                                toReturnOccupied[element.tableType] = 1
+                            }
+                        }
+                    });
+                    // Else add it to the vacant list
+                    if (!isTableOccupied) {
+                        if (toReturnVacant[element.tableType]) {
+                            toReturnVacant[element.tableType] += 1
+                        } else {
+                            toReturnVacant[element.tableType] = 1
+                        }
+                    }
+                });
 
-            const vacant = Object.keys(toReturnVacant).map((key) => [Number(key), toReturnVacant[key]]);
-            const occupied = Object.keys(toReturnOccupied).map((key) => [Number(key), toReturnOccupied[key]]);
-            res.status(200).json({
-                data: {
-                    vacant: vacant,
-                    occupied: occupied
-                }
-            })
+                const vacant = Object.keys(toReturnVacant).map((key) => [Number(key), toReturnVacant[key]]);
+                const occupied = Object.keys(toReturnOccupied).map((key) => [Number(key), toReturnOccupied[key]]);
+                res.status(200).json({
+                    data: {
+                        vacant: vacant,
+                        occupied: occupied
+                    }
+                })
         } else {
             res.status(404).json({
                 message: "tables not found"

@@ -32,6 +32,13 @@ const Settings = () => {
         GetUserList()
     }, [])
 
+    const SetUserModals = (user) => {
+        if (localStorage.getItem('userType') !== 'host') {
+            setSelectedUser(user)
+            setShowDetailsModal(true)
+        }
+    }
+
     return (
         <div>
             <UsersContainer>
@@ -39,7 +46,7 @@ const Settings = () => {
                     <SectionTitle>
                         User List
                     </SectionTitle>
-                    <Button onClick={ () => setShowNewModal(true)}>New</Button>
+                    { localStorage.getItem('userType') != 'host' && <Button onClick={ () => setShowNewModal(true)}>New</Button> }
                 </TitleContainer>
                 {!users && 
                     <span className="spinner-small align"></span>
@@ -49,17 +56,17 @@ const Settings = () => {
                         <div key={item.id}>
                         <User 
                             style={{ paddingBottom: '8px', borderBottom: '2px solid #6b7280' }}
-                            onClick={ () => { setSelectedUser(item); setShowDetailsModal(true) } }
+                            onClick={ () => SetUserModals(item) }
                         >
                             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                 <Name>{item.firstName} {item.lastName}</Name>
-                                <Name style={{ textTransform: 'capitalize' }}>{item.userType}</Name>
+                                { localStorage.getItem('userType') != 'host' && <Name style={{ textTransform: 'capitalize' }}>{item.userType}</Name> }
                             </div>
-                            <div>
+                            { localStorage.getItem('userType') != 'host' && <div>
                                 <Username>Username
                                     <span>{item.username}</span>
                                 </Username>
-                            </div>
+                            </div> }
                         </User>
                         {showDetailsModal && <Details setShowDetailsModal={setShowDetailsModal} data={selectedUser} style={{ position: 'fixed', zIndex: 5 }} /> }
                         </div>

@@ -23,7 +23,7 @@ const Main = () => {
         })
     }
     const fetchTables = (sectionName) => {
-        fetch(`http://localhost:5000/reservations/tables?sectionName=${sectionName}`)
+        fetch(`http://localhost:5000/reservations/tables?section=${sectionName}`)
         .then((res) => {
             if (res.ok) 
                 return res.json()

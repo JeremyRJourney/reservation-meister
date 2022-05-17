@@ -3,7 +3,7 @@ import styled from "styled-components"
 import ReservationItem from './ReservationItem'
 const Reservation = (props) => {
 
-    const [data, setData] = useState([])
+    const [data, setData] = useState(null)
     const fetchList = () => {
         fetch('http://localhost:5000/reservations/list')
         .then((res) => {
@@ -30,36 +30,39 @@ const Reservation = (props) => {
             {!data && 
                 <span className="spinner-small align"></span>
             }
-            <CountList>
-                {data && <>
-                    <section>
-                        <h1>Scheduled</h1>
-                        <span style={{ fontSize: '24px' }}>{data.length}</span>
-                    </section>
-                    <section>
-                        <h1>Seated</h1>
-                        <span style={{ fontSize: '24px' }}>{data.length}</span>
-                    </section>
-                    <section>
-                        <h1>Completed</h1>
-                        <span style={{ fontSize: '24px' }}>{data.length}</span>
-                    </section>
-                </> }
-            </CountList>
+            { data && <>
+                <CountList>
+                    {data && <>
+                        <section>
+                            <h1>Scheduled</h1>
+                            <span style={{ fontSize: '24px' }}>{data.length}</span>
+                        </section>
+                        <section>
+                            <h1>Seated</h1>
+                            <span style={{ fontSize: '24px' }}>{data.length}</span>
+                        </section>
+                        <section>
+                            <h1>Completed</h1>
+                            <span style={{ fontSize: '24px' }}>{data.length}</span>
+                        </section>
+                    </> }
+                </CountList>
 
-            <ReservationItems>
-                {data && data.map(item => {
-                    return (
-                        <ReservationItem
-                            data={item}
-                            key={item.id}
-                        >
-                        </ReservationItem>
-                    )
-                }
-                )}
+                <ReservationItems>
+                    {data && data.map(item => {
+                        return (
+                            <ReservationItem
+                                data={item}
+                                key={item._id}
+                            >
+                            </ReservationItem>
+                        )
+                    }
+                    )}
 
-            </ReservationItems>
+                </ReservationItems>
+            </>
+            }
         </div>
     )
 }

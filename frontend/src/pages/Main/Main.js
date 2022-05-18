@@ -4,11 +4,13 @@ import Navbar from "../../components/Navbar"
 import Header from "../../components/Header"
 import FloorPlan from '../../components/FloorPlan'
 
+import GetAPI from "../../utils/api"
 
 const Main = () => {
 
+    const URL = GetAPI()
     const fetchList = () => {
-        fetch(`http://localhost:5000/reservations/list`)
+        fetch(`${URL}reservations/list`)
         .then((res) => {
             if (res.ok) 
                 return res.json()
@@ -23,7 +25,7 @@ const Main = () => {
         })
     }
     const fetchTables = (sectionName) => {
-        fetch(`http://localhost:5000/reservations/tables?section=${sectionName}`)
+        fetch(`${URL}reservations/tables?section=${sectionName}`)
         .then((res) => {
             if (res.ok) 
                 return res.json()
@@ -40,12 +42,15 @@ const Main = () => {
 
     const updateTables = (item) => {
         setCurrentTables(null)
+        setCurrentList(null)
         if (item === 'Bar') {
             fetchTables('Bar')
             fetchList()
         }
         if (item === 'Gallery') {
             fetchTables('Gallery')
+            fetchList()
+        } else {
             fetchList()
         }
 
@@ -76,6 +81,7 @@ const Main = () => {
                         {currentTables && 
                             <FloorPlan  
                                 currentNav={currentNav}
+                                updateTables={updateTables}
                                 setCurrentNav={setCurrentNav}
                                 currentTables={currentTables}
                                 currentList={currentList}

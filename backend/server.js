@@ -22,6 +22,7 @@ const CreateReservation = require('./handlers/CreateReservation')
 const CreateUser = require('./handlers/CreateUser')
 const DeleteUser = require('./handlers/DeleteUser')
 const DeleteReservation = require('./handlers/DeleteReservation');
+const CheckReservations = require('./handlers/CheckPossibleReservations')
 
 express()
   // Below are methods that are included in express(). We chain them for convenience.
@@ -51,10 +52,11 @@ express()
   .get("/users/signout", SignOut.SignOut)
   .get("/users/signup/:id", SignUp.SignUp)
 
+  .post("/reservations/available", CheckReservations.CheckReservations)
   .post("/users/signin", SignIn.SignIn)
-  .post("/us/:id", UpdateUser.UpdateUser)
+  .post("/users/:id", UpdateUser.UpdateUser)
   .post("/reservations/:id", UpdateReservation.UpdateReservation)
-  .post("/reservations/create", CreateReservation.CreateReservation)
+  .post("/reservation/create", CreateReservation.CreateReservation)
   .post("/users/create", CreateUser.CreateUser)
 
   .delete("/users/:id", DeleteUser.DeleteUser)

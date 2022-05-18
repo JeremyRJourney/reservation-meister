@@ -5,6 +5,7 @@ import Settings from "../Settings"
 import Tables from "../Tables"
 
 const Navbar = (props) => {
+    const { data } = props
     const [currentNav, setCurrentNav] = useState("Reservations")
 
     return (
@@ -39,7 +40,7 @@ const Navbar = (props) => {
                     </div>
                 </NavItem>
             </NavOptions>
-            {currentNav === 'Reservations' && <Reservation />}
+            {currentNav === 'Reservations' && <Reservation data={data}/>}
             {currentNav === 'Tables' && <Tables />}
             {currentNav === 'Settings' && <Settings />}
         </Wrapper>

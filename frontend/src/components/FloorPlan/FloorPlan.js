@@ -3,7 +3,7 @@ import Table from "./Table"
 
 
 const FloorPlan = (props) => {
-    const { currentTables } = props
+    const { currentTables, updateTables, currentNav } = props
 
     return (
         <div id="floor-plan">
@@ -11,7 +11,9 @@ const FloorPlan = (props) => {
             {currentTables && currentTables.map(item => {
                     return (
                         <Table
-                            key={item.id}
+                            updateTables={updateTables}
+                            currentNav={currentNav}
+                            key={item._id}
                             data={item}
                         />
                     )

@@ -2,8 +2,10 @@ import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 
+import GetAPI from "../../utils/api"
 
 const Login = () => {
+    const URL = GetAPI()
     const navigate = useNavigate()
     const [user, setUser] = useState("")
     const [canSubmit, setCanSubmit] = useState(false)
@@ -25,7 +27,7 @@ const Login = () => {
     const HandleSubmit = () => {
         setIsSumbitted(true)
         setIsErrored(false)
-        fetch("http://localhost:5000/users/signin", {
+        fetch(`${URL}users/signin`, {
             method: 'POST',
             headers: {
                 Accept: "application/json",

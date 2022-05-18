@@ -6,7 +6,7 @@ import TableDetails from "./TableDetails"
 
 const Table = (props) => {
 
-    const { data } = props
+    const { data, updateTables, currentNav } = props
 
     const [locationX, setLocationX] = useState(null)
     const [locationY, setLocationY] = useState(null)
@@ -93,7 +93,7 @@ const Table = (props) => {
             />
             }
         </Wrapper>
-        {data.firstName && showReservationList && <ReservationModal setShowReservationList={setShowReservationList} data={data} style={{ position: 'fixed', zIndex: 5 }} /> }
+        {data.firstName && showReservationList && <ReservationModal currentNav={currentNav} updateTables={updateTables} setShowReservationList={setShowReservationList} data={data} style={{ position: 'fixed', zIndex: 5 }} /> }
         </>
     )
 }

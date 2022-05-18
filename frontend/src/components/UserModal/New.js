@@ -1,7 +1,13 @@
 import { useState } from "react";
 import styled from "styled-components";
 
+import GetAPI from "../../utils/api"
+
+
 const New = (props) => {
+
+    const URL = GetAPI()
+    
     const { setShowNewModal } = props
 
     const [firstName, setFirstName] = useState("")
@@ -15,7 +21,7 @@ const New = (props) => {
     const HandleSubmit = (e) => {
         e.preventDefault()
         setIsWaiting(true)
-        fetch("http://localhost:5000/users/create", {
+        fetch(`${URL}users/create`, {
             method: 'POST',
             headers: {
                 Accept: "application/json",

@@ -1,8 +1,11 @@
 import { useState } from "react"
 import styled from "styled-components";
 
+import GetAPI from "../../utils/api";
 
 const NewReservation = (props) => {
+    const URL = GetAPI()
+
     const { setShowReservationCreate, updateTables, currentNav } = props
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
@@ -13,15 +16,69 @@ const NewReservation = (props) => {
 
     const [isFormError, setIsFormError] = useState(false)
 
+    const [canSubmit, setCanSubmit] = useState(false)
+    const [availableTables, setAvailableTables] = useState([])
+
     const HandleSubmit = (e) => {
-        e.preventDefault()
+        e.preventDefault() 
+        console.log(tableNumber)
 
         if (firstName && lastName && time && guests && tableNumber) {
-            setShowReservationCreate(false)
             setIsFormError(false)
-            updateTables(currentNav)
-            // TODO push to server
-            // TODO Then reload page
+
+            fetch(`${URL}reservation/create`, {
+                method: 'POST',
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",    
+                },
+                body: JSON.stringify({
+                    tableName: tableNumber,
+                    firstName: firstName,
+                    lastName: lastName,
+                    guests: guests,
+                    time: time,
+                    notes: notes
+                })
+            })
+            .then(res => {
+                if (res.status === 201)
+                    return res.json()
+            })
+            .then((json) => {
+                setShowReservationCreate(false)
+                updateTables(currentNav)
+            })
+                
+        } else {
+            setIsFormError(true)
+        }
+
+    }
+
+    const FindTables = () => {
+        if (guests) {
+            setIsFormError(false)
+            fetch(`${URL}reservations/available`, {
+                method: 'POST',
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",    
+                },
+                body: JSON.stringify({
+                    guests: guests,
+                })
+            })
+            .then(res => {
+                if (res.status === 200)
+                    return res.json()
+            })
+            .then((json) => {
+                setCanSubmit(true)
+                setAvailableTables(json.data)
+                setTableNumber(json.data[0].tableName)
+            })
+    
         } else {
             setIsFormError(true)
         }
@@ -62,17 +119,6 @@ const NewReservation = (props) => {
                     </div>
                 </div>
                 <div style={{ margin: '16px 0' }}>
-                    <InputLabel>* Table number</InputLabel>
-                    <Input
-                        onChange={ (e) => setTableNumber(e.target.value)}
-                        type="text" 
-                        name="tableNumber" 
-                        value={tableNumber}
-                        id="tableNumber" 
-                        placeholder="Table number" 
-                    />
-                </div>
-                <div style={{ margin: '16px 0' }}>
                     <InputLabel>* Guests</InputLabel>
                     <Input
                         onChange={ (e) => setGuests(e.target.value)}
@@ -95,8 +141,21 @@ const NewReservation = (props) => {
                         id="time" 
                         placeholder="Time" 
                     />
-                    <div>time available...</div>
                 </div>
+                {canSubmit && <div style={{ margin: '16px 0' }}>
+                    <InputLabel>* Table number</InputLabel>
+                    <StatusDropdown
+                        onChange={ (e) => setTableNumber(e.target.value)}
+                        value={tableNumber}
+                    >
+                        {availableTables && availableTables.map(item => {
+                            return (
+                                <option key={item._id} value={item.tableName}>{item.tableName}</option>
+                            )
+                        }) }
+                    </StatusDropdown>
+                </div>
+                }
                 <div style={{ margin: '36px 0' }}>
                     <InputLabel>Notes</InputLabel>
                     <InputNotes
@@ -108,7 +167,10 @@ const NewReservation = (props) => {
                         placeholder="Any notes about the reservation" 
                     />
                 </div>
-                <Button type="submit">Create reservation</Button>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Button onClick={ () => FindTables() }>Check table</Button>
+                    {canSubmit && <Button type="submit">Create reservation</Button>}
+                </div>
                 {isFormError && <FormError>Required fields missing</FormError>}
 
             </form>
@@ -152,6 +214,15 @@ margin-right: 16px;
 :hover {
     cursor: pointer
 } 
+`
+const StatusDropdown = styled.select`
+    filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.05));
+    display: block;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    margin-top: 8px;
+    min-width: 225px;
 `
 
 const InputLabel = styled.label`

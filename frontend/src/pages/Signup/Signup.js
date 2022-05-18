@@ -3,15 +3,17 @@ import { useNavigate, useLocation } from "react-router-dom"
 import styled from "styled-components"
 import LoadingAnimation from "../../components/LoadingAnimation"
 
+import GetAPI from  "../../utils/api"
 
 const Signup = (props) => {
+    const URL = GetAPI()
     const search = useLocation().search
     const uid = new URLSearchParams(search).get('uid')
 
     const navigate = useNavigate()
     const [userInfo, setUserInfo] = useState(null)
     const [isErrored, setIsErrored] = useState(false)
-    const [isSubmitted, setIsSumbitted] = useState(false)
+    const [isSubmitted] = useState(false)
 
     const HandleSubmit = (e) => {
         localStorage.setItem('isAuthed', true)
@@ -20,7 +22,7 @@ const Signup = (props) => {
     }
 
     useEffect(() => {
-        fetch(`http://localhost:5000/users/signup/${uid}`)
+        fetch(`${URL}users/signup/${uid}`)
             .then((res) => {
                 if (res.ok) 
                     return res.json()
@@ -46,7 +48,7 @@ const Signup = (props) => {
                     <h1 style={{ padding: '16px 0' }}>No user found</h1>
                 </Container>
             </Wrapper>
-            </>
+            </> 
         )
     }
     return (

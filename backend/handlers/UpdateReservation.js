@@ -13,10 +13,19 @@ const options = {
 
 exports.UpdateReservation = async (req, res) => {
     const client = new MongoClient(MONGO_URI, options);
+
     try {
+        const todaysDate = new Date()
+
+        let month = (todaysDate.getMonth())+1
+        if (month.toString().length === 1) {
+            month = `0${month}`;
+        }
+    
+        const formattedDate = todaysDate.getFullYear() + "-" + month + "-" + todaysDate.getDate()
+
         await client.connect();
         const db = client.db("project");
-        const firstName = req.body.firstName
         const user = await db.collection("reservations").updateOne(
             { "_id":  ObjectId(req.params.id)},
             {
@@ -25,7 +34,7 @@ exports.UpdateReservation = async (req, res) => {
                     "firstName": req.body.firstName,
                     "lastName": req.body.lastName,
                     "guests": req.body.guests,
-                    "time": req.body.time,
+                    "time": formattedDate+"T"+req.body.time+":00",
                     "status": req.body.status,
                     "notes": req.body.notes,
                 }

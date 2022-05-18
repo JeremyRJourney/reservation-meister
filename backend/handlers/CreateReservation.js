@@ -1,11 +1,53 @@
 "use strict"
 
+require("dotenv").config();
+
+const { MONGO_URI } = process.env;
+
+const { MongoClient } = require("mongodb");
+const options = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+};
 
 
 exports.CreateReservation = async (req, res) => {
+    console.log('todaysDate')
 
-    res.status(200).json({
-        data: sample
-    })
+    const client = new MongoClient(MONGO_URI, options);
+
+    try {
+        const todaysDate = new Date()
+        let month = (todaysDate.getMonth())+1
+        if (month.toString().length === 1) {
+            month = `0${month}`;
+        }
+        const formattedDate = todaysDate.getFullYear() + "-" + month + "-" + todaysDate.getDate()
+        await client.connect();
+        const db = client.db("project");
+        const reservations = await db.collection("reservations").insertOne({
+            tableName: req.body.tableName,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            guests: req.body.guests,
+            time: formattedDate+"T"+req.body.time+":00",
+            status: 'none',
+            notes: req.body.notes
+        });
+        if (reservations) {
+            res.status(201).json({
+                message: 'created'
+            })
+        } else {
+            res.status(404).json({
+                message: "reservations not created"
+            })
+        }
+    } catch {
+        res.status(500).json({
+            message: "server error"
+        })
+    }
+    client.close()
 }
 

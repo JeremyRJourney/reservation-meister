@@ -1,7 +1,10 @@
 import { useState } from "react";
 import styled from "styled-components";
 
+import GetAPI from "../../utils/api"
+
 const Details = (props) => {
+    const URL = GetAPI()
     const { setShowDetailsModal, data } = props
 
     const [firstName, setFirstName] = useState(data.firstName)
@@ -15,7 +18,7 @@ const Details = (props) => {
         e.preventDefault()
         setIsWaiting(true)
         console.log(firstName)
-        fetch(`http://localhost:5000/us/${data._id}`, {
+        fetch(`${URL}users/${data._id}`, {
             method: 'POST',
             headers: {
                 Accept: "application/json",

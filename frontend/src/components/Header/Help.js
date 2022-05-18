@@ -48,7 +48,7 @@ const Help = () => {
     const NewReservations = () => {
         return (
             <div style={{ maxWidth: '475px' }}>
-                Creating a new reservation, click on the plus icon in the header, and input the necessary fields into the fields provided. Click submit and the reservation will be made.
+                <p>Creating a new reservation, click on the plus icon in the header, and input the necessary fields into the fields provided. Click submit and the reservation will be made. </p><p style={{ marginTop: '8px' }}>You can also check what tables are available by indicating the number of guests and clicking Check table</p>
             </div>
         )
     }
@@ -60,6 +60,16 @@ const Help = () => {
             </div>
         )
     }
+
+    const TableTypes = () => {
+        return (
+            <div style={{ maxWidth: '475px' }}>
+                Only 4 Pre-programmed table types
+                <h1>2, 4, 6, 8</h1>
+            </div>
+        )
+    }
+
 
     return (
         <div>
@@ -83,6 +93,10 @@ const Help = () => {
                         <SectionWrapper>
                             <SectionTitle>Update Reservation</SectionTitle>
                             <UpdateReservation/>
+                        </SectionWrapper>
+                        <SectionWrapper>
+                            <SectionTitle>Table Types</SectionTitle>
+                            <TableTypes/>
                         </SectionWrapper>
                     </Wrapper>
                 </Container>

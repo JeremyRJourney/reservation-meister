@@ -4,15 +4,19 @@ import styled from "styled-components"
 import Details from "../UserModal/Details"
 import New from "../UserModal/New"
 
+import GetAPI from "../../utils/api"
+
 const Settings = () => {
 
+    const URL = GetAPI()
+    
     const [users, setUsers] = useState(null)
     const [selectedUser, setSelectedUser] = useState(null)
     const [showNewModal, setShowNewModal] = useState(false)
     const [showDetailsModal, setShowDetailsModal] = useState(false)
 
     const GetUserList = () => {
-        fetch('http://localhost:5000/users/list')
+        fetch(`${URL}users/list`)
         .then((res) => {
             if (res.ok) 
                 return res.json()

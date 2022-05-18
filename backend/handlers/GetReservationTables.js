@@ -12,37 +12,42 @@ const options = {
 
 const GetReservationAndTable = (reservations, tables) => {
     const toReturn = []
+    const today = (new Date()).getDate()
 
     tables.forEach(table => {
         let isReserved = false
         reservations.forEach(reserve => {
-            if (table.tableName === reserve.tableName) {
-                isReserved = true
+            const reserveDate = new Date(reserve.time)
+            if (today == reserveDate.getDate()) {
+                if (table.tableName == reserve.tableName) {
+                    console.log('h')
+                    isReserved = true
 
-                // Check if late and if so overwrite return
-                let status = null
+                    // Check if late and if so overwrite return
+                    let status = null
 
-                const currentDate = new Date()
-                const reserveDate = new Date(reserve.time)
-                if (Date.parse(currentDate) > Date.parse(reserveDate) && reserve.status === 'none')
-                    status = 'late'
-                else
-                    status = reserve.status
+                    const currentDate = new Date()
+                    const reserveDate = new Date(reserve.time)
+                    if (Date.parse(currentDate) > Date.parse(reserveDate) && reserve.status === 'none')
+                        status = 'late'
+                    else
+                        status = reserve.status
 
-                // Format return
-                toReturn.push({
-                    _id: reserve._id,
-                    tableName: reserve.tableName,
-                    firstName: reserve.firstName,
-                    lastName: reserve.lastName,
-                    guests: reserve.guests,
-                    time: reserve.time,
-                    notes: reserve.notes,
-                    status: status,
-                    tableLocationX: table.tableLocationX,
-                    tableType: table.tableType,
-                    tableLocationY: table.tableLocationY
-                })
+                    // Format return
+                    toReturn.push({
+                        _id: reserve._id,
+                        tableName: reserve.tableName,
+                        firstName: reserve.firstName,
+                        lastName: reserve.lastName,
+                        guests: reserve.guests,
+                        time: reserve.time,
+                        notes: reserve.notes,
+                        status: status,
+                        tableLocationX: table.tableLocationX,
+                        tableType: table.tableType,
+                        tableLocationY: table.tableLocationY
+                    })
+                }
             }
         })
         if (!isReserved) {

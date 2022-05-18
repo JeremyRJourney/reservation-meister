@@ -2,12 +2,17 @@ import { useEffect, useState } from 'react'
 import styled from "styled-components"
 import Table from './Table'
 
+import GetAPI from "../../utils/api"
+
 const Tables = () => {
+
+    const URL = GetAPI()
+
     const [vacantTables, setVacantTables] = useState(null)
     const [occupiedTables, setOccipiedTables] = useState(null)
 
     useEffect(() => {
-        fetch('http://localhost:5000/tables/occupancy')
+        fetch(`${URL}tables/occupancy`)
         .then((res) => {
             if (res.ok) 
                 return res.json()

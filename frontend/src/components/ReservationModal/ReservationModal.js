@@ -1,9 +1,11 @@
 import { useState } from "react"
 import styled from "styled-components";
 
+import GetAPI from "../../utils/api";
 
 const ReservationModal = (props) => {
-    const { setShowReservationList, data } = props
+    const URL = GetAPI()
+    const { setShowReservationList, updateTables, currentNav, data } = props
 
     const GetTime = () => {
         const dateObj = new Date(data.time)
@@ -19,11 +21,39 @@ const ReservationModal = (props) => {
     const [notes, setNotes] = useState(data.notes ? data.notes : '')
     const [status, setStatus] = useState(data.status)
 
+    const [isFormSubmit, setIsFormSubmit] = useState(false)
+
     const HandleSubmit = (e) => {
         e.preventDefault()
 
         if (firstName && lastName && time && guests) {
-            setShowReservationList(false)
+            setIsFormSubmit(true)
+            fetch(`${URL}reservations/${data._id}`, {
+                method: 'POST',
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",    
+                },
+                body: JSON.stringify({
+                    tableName: tableNumber,
+                    firstName: firstName,
+                    lastName: lastName,
+                    guests: guests,
+                    time: time,
+                    notes: notes,
+                    status: status
+                })
+            })
+            .then(res => {
+                if (res.status === 200)
+                    return res.json()
+            })
+            .then((json) => {
+                setIsFormSubmit(false)
+                setShowReservationList(false)
+                updateTables(currentNav)
+            })
+    
         }
     }
 
@@ -122,7 +152,7 @@ const ReservationModal = (props) => {
                     </StatusDropdown>
 
                 </div>
-                <Button type="submit">Update reservation</Button>
+                { !isFormSubmit && <Button type="submit">Update reservation</Button> }
 
             </form>
         </Wrapper>

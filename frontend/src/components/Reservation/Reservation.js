@@ -1,11 +1,16 @@
 import { useEffect, useState } from 'react'
 import styled from "styled-components"
 import ReservationItem from './ReservationItem'
+
+import GetAPI from "../../utils/api"
+
 const Reservation = (props) => {
+
+    const URL = GetAPI()
 
     const [data, setData] = useState(null)
     const fetchList = () => {
-        fetch('http://localhost:5000/reservations/list')
+        fetch(`${URL}reservations/list`)
         .then((res) => {
             if (res.ok) 
                 return res.json()
@@ -31,23 +36,6 @@ const Reservation = (props) => {
                 <span className="spinner-small align"></span>
             }
             { data && <>
-                <CountList>
-                    {data && <>
-                        <section>
-                            <h1>Scheduled</h1>
-                            <span style={{ fontSize: '24px' }}>{data.length}</span>
-                        </section>
-                        <section>
-                            <h1>Seated</h1>
-                            <span style={{ fontSize: '24px' }}>{data.length}</span>
-                        </section>
-                        <section>
-                            <h1>Completed</h1>
-                            <span style={{ fontSize: '24px' }}>{data.length}</span>
-                        </section>
-                    </> }
-                </CountList>
-
                 <ReservationItems>
                     {data && data.map(item => {
                         return (

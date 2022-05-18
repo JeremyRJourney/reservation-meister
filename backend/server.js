@@ -44,23 +44,23 @@ express()
   // Nothing to modify above this line
   // ---------------------------------
   // add new endpoints here 👇
-  .get("reservations/list", GetReservationList.GetReservationList)
-  .get("reservations/tables", GetReservationTables.GetReservationTables)
-  .get("tables/occupancy", GetTableOccupancy.GetTableOccupancy)
-  .get("tables", GetTables.GetTables)
-  .get("users/list", GetUserList.GetUserList)
-  .get("users/signout", SignOut.SignOut)
-  .get("users/signup/:id", SignUp.SignUp)
+  .get("/reservations/list", GetReservationList.GetReservationList)
+  .get("/reservations/tables", GetReservationTables.GetReservationTables)
+  .get("/tables/occupancy", GetTableOccupancy.GetTableOccupancy)
+  .get("/tables", GetTables.GetTables)
+  .get("/users/list", GetUserList.GetUserList)
+  .get("/users/signout", SignOut.SignOut)
+  .get("/users/signup/:id", SignUp.SignUp)
 
-  .post("reservations/available", CheckReservations.CheckReservations)
-  .post("users/signin", SignIn.SignIn)
-  .post("users/:id", UpdateUser.UpdateUser)
-  .post("reservations/:id", UpdateReservation.UpdateReservation)
-  .post("reservation/create", CreateReservation.CreateReservation)
-  .post("users/create", CreateUser.CreateUser)
+  .post("/reservations/available", CheckReservations.CheckReservations)
+  .post("/users/signin", SignIn.SignIn)
+  .post("/users/:id", UpdateUser.UpdateUser)
+  .post("/reservations/:id", UpdateReservation.UpdateReservation)
+  .post("/reservation/create", CreateReservation.CreateReservation)
+  .post("/users/create", CreateUser.CreateUser)
 
-  .delete("users/:id", DeleteUser.DeleteUser)
-  .delete("reservations/:id", DeleteReservation.DeleteReservation)
+  .delete("/users/:id", DeleteUser.DeleteUser)
+  .delete("/reservations/:id", DeleteReservation.DeleteReservation)
   
   // add new endpoints here ☝️
   // ---------------------------------

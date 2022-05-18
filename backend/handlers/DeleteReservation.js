@@ -1,5 +1,7 @@
 "use strict"
 
+const { ObjectId } = require("bson")
+
 require("dotenv").config();
 const { MONGO_URI } = process.env;
 
@@ -16,9 +18,11 @@ exports.DeleteReservation = async (req, res) => {
     try {
         await client.connect();
         const db = client.db("project");
-        const user = await db.collection("reservations").deleteOne({_id: req.params._id});
-        if (user) {
-            res.status(201)
+        const user = await db.collection("reservations").deleteOne({_id: ObjectId(req.params.id)});
+        if (user.deletedCount === 1) {
+            res.status(200).json({
+                message: 'reservation deleted'
+            })
         } else {
             res.status(404).json({
                 message: "reservation not found"

@@ -3,7 +3,7 @@
 
 */
 
-const isUsingBuild = false
+const isUsingBuild = true
 const GetAPI = () => {
     return isUsingBuild ? "https://reservation-meister.com/api/" : "http://localhost:5000/"
 }

@@ -5,7 +5,7 @@
 
 const isUsingBuild = true
 const GetAPI = () => {
-    return isUsingBuild ? "https://reservation-meister.com/api/" : "http://localhost:5000/"
+    return isUsingBuild ? "https://reservation-meister.dev/api/" : "http://localhost:5000/"
 }
 
 export default GetAPI

@@ -16,7 +16,6 @@ exports.SignUp = async (req, res) => {
     try {
         await client.connect();
         const db = client.db("project");
-        console.log(req.params)
         const user = await db.collection("pendingUsers").findOne({ uid: req.params.id });
         if (user) {
             res.status(200).json({

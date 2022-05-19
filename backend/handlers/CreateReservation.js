@@ -12,7 +12,6 @@ const options = {
 
 
 exports.CreateReservation = async (req, res) => {
-    console.log('todaysDate')
 
     const client = new MongoClient(MONGO_URI, options);
 

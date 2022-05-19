@@ -44,6 +44,7 @@ express()
   // Nothing to modify above this line
   // ---------------------------------
   // add new endpoints here 👇
+  
   /*
   .get("/reservations/list", GetReservationList.GetReservationList)
   .get("/reservations/tables", GetReservationTables.GetReservationTables)
@@ -63,7 +64,9 @@ express()
   .delete("/users/:id", DeleteUser.DeleteUser)
   .delete("/reservations/:id", DeleteReservation.DeleteReservation)
   */
-  // PROD
+
+  // PROD 
+  
   .get("/api/reservations/list", GetReservationList.GetReservationList)
   .get("/api/reservations/tables", GetReservationTables.GetReservationTables)
   .get("/api/tables/occupancy", GetTableOccupancy.GetTableOccupancy)

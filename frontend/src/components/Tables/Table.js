@@ -2,7 +2,6 @@ import styled from "styled-components"
 
 const ReservationItem = (props) => {
     const {data} = props
-    console.log(data)
     return (
         <Item>
             <div>

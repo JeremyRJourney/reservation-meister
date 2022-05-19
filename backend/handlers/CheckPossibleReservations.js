@@ -26,7 +26,6 @@ exports.CheckReservations = async (req, res) => {
             if (reservations) {
                 tables.forEach(table => {
                     if (table.tableType == req.body.guests) {
-                        console.log(table)
                         let isReserved = false
                         reservations.forEach(reserve => {
                             if (table.tableName === reserve.tableName)

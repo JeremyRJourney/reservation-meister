@@ -8,7 +8,7 @@ const New = (props) => {
 
     const URL = GetAPI()
     
-    const { setShowNewModal } = props
+    const { setShowNewModal, GetUserList } = props
 
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
@@ -40,8 +40,10 @@ const New = (props) => {
         })
         .then((json) => {
             setIsWaiting(false)
-            console.log(json)
+            setShowNewModal(false)
+            setUsers(null)
             setResponseId(json.data.uid)
+            GetUserList()
         })
         
 
@@ -97,7 +99,7 @@ const New = (props) => {
                         onChange={ (e) => setUserType(e.target.value)}
                         value={userType}
                     >
-                        <option value="admin">Admin</option>
+                        { localStorage.getItem('userType') == 'admin' && <option value="admin">Admin</option> }
                         <option value="manager">Manager</option>
                         <option value="host">Host</option>
                     </StatusDropdown>
@@ -106,7 +108,7 @@ const New = (props) => {
                 <Button type="submit">Create user</Button>
             </form>
             {responseId && <Title style={{ marginTop: '24px' }}>
-                <a style={{ color: 'currentcolor' }} href={`http://localhost:3000/signup?uid=${responseId}`} target="_blank">Sign-up now</a>
+                <a style={{ color: 'currentcolor' }} href={ URL == 'http://localhost:5000' ? `http://localhost:3000/signup?uid=${responseId}` : `https://reservation-meister.dev/signup?uid=${responseId}`} target="_blank">Sign-up now</a>
                 </Title>
             }
 

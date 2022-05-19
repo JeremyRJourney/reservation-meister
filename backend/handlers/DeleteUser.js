@@ -19,7 +19,6 @@ exports.DeleteUser = async (req, res) => {
         await client.connect();
         const db = client.db("project");
         const user = await db.collection("users").deleteOne({ _id: ObjectId(req.params.id )});
-        console.log(user.deletedCount)
         if (user.deletedCount === 1) {
             res.status(200).json({
                 message: "deleted"

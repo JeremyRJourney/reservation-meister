@@ -20,7 +20,6 @@ const GetReservationAndTable = (reservations, tables) => {
             const reserveDate = new Date(reserve.time)
             if (today == reserveDate.getDate()) {
                 if (table.tableName == reserve.tableName) {
-                    console.log('h')
                     isReserved = true
 
                     // Check if late and if so overwrite return

@@ -5,7 +5,7 @@ import GetAPI from "../../utils/api"
 
 const Details = (props) => {
     const URL = GetAPI()
-    const { setShowDetailsModal, data } = props
+    const { setShowDetailsModal, data, GetUserList, setUsers } = props
 
     const [firstName, setFirstName] = useState(data.firstName)
     const [lastName, setLastName] = useState(data.lastName)
@@ -17,7 +17,6 @@ const Details = (props) => {
     const HandleSubmit = (e) => {
         e.preventDefault()
         setIsWaiting(true)
-        console.log(firstName)
         fetch(`${URL}users/${data._id}`, {
             method: 'POST',
             headers: {
@@ -37,6 +36,9 @@ const Details = (props) => {
         })
         .then((json) => {
             setIsWaiting(false)
+            setShowDetailsModal(false)
+            setUsers(null)
+            GetUserList()
         })
     }
 
@@ -90,7 +92,7 @@ const Details = (props) => {
                         onChange={ (e) => setUserType(e.target.value)}
                         value={userType}
                     >
-                        <option value="admin">Admin</option>
+                        { localStorage.getItem('userType') == 'admin' && <option value="admin">Admin</option> }
                         <option value="manager">Manager</option>
                         <option value="host">Host</option>
                     </StatusDropdown>

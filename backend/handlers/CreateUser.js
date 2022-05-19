@@ -28,7 +28,6 @@ exports.CreateUser = async (req, res) => {
             uid: uid
     });
         if (user) {
-            console.log(user)
             res.status(201).json({
                 data: {
                     uid: uid

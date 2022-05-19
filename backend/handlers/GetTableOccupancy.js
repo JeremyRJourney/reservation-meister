@@ -28,9 +28,8 @@ exports.GetTableOccupancy = async (req, res) => {
                     reservations.forEach(reserve => {
                         const reserveDate = new Date(reserve.time)
                         if (today == reserveDate.getDate()) {
-        
                             // If the table is reserved add it to reserved list
-                            if (reserve.tableName === element.tableName) {
+                            if (reserve.tableName == element.tableName) {
                                 isTableOccupied = true
                                 if (toReturnOccupied[element.tableType]) {
                                     toReturnOccupied[element.tableType] += 1

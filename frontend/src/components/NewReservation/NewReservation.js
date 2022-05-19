@@ -21,7 +21,6 @@ const NewReservation = (props) => {
 
     const HandleSubmit = (e) => {
         e.preventDefault() 
-        console.log(tableNumber)
 
         if (firstName && lastName && time && guests && tableNumber) {
             setIsFormError(false)

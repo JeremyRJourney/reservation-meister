@@ -72,12 +72,12 @@ const Settings = () => {
                                 </Username>
                             </div> }
                         </User>
-                        {showDetailsModal && <Details setShowDetailsModal={setShowDetailsModal} data={selectedUser} style={{ position: 'fixed', zIndex: 5 }} /> }
+                        {showDetailsModal && <Details setUsers={setUsers} GetUserList={GetUserList} setShowDetailsModal={setShowDetailsModal} data={selectedUser} style={{ position: 'fixed', zIndex: 5 }} /> }
                         </div>
                     )
                 }) }
             </UsersContainer>
-            {showNewModal && <New setShowNewModal={setShowNewModal} style={{ position: 'fixed', zIndex: 5 }} /> }
+            {showNewModal && <New setUsers={setUsers} GetUserList={GetUserList} setShowNewModal={setShowNewModal} style={{ position: 'fixed', zIndex: 5 }} /> }
 
         </div>
     )

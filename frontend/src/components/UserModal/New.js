@@ -8,7 +8,7 @@ const New = (props) => {
 
     const URL = GetAPI()
     
-    const { setShowNewModal, GetUserList } = props
+    const { setShowNewModal, GetUserList, setUsers} = props
 
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
@@ -21,7 +21,7 @@ const New = (props) => {
     const HandleSubmit = (e) => {
         e.preventDefault()
         setIsWaiting(true)
-        fetch(`${URL}users/create`, {
+        fetch(`${URL}user/create`, {
             method: 'POST',
             headers: {
                 Accept: "application/json",
@@ -40,7 +40,6 @@ const New = (props) => {
         })
         .then((json) => {
             setIsWaiting(false)
-            setShowNewModal(false)
             setUsers(null)
             setResponseId(json.data.uid)
             GetUserList()

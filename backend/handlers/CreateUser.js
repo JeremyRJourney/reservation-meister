@@ -6,7 +6,6 @@ const uid = uuidv4();
 
 const { MONGO_URI } = process.env;
 
-const { response } = require("express");
 const { MongoClient } = require("mongodb");
 const options = {
     useNewUrlParser: true,
@@ -26,7 +25,7 @@ exports.CreateUser = async (req, res) => {
             userType: req.body.userType,
             isActive: false,
             uid: uid
-    });
+        });
         if (user) {
             res.status(201).json({
                 data: {
@@ -41,6 +40,7 @@ exports.CreateUser = async (req, res) => {
 
     } catch {
         res.status(500).json({
+            data: req.body,
             message: "server error"
         })
     }

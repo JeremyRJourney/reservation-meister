@@ -59,13 +59,14 @@ express()
   .post("/users/:id", UpdateUser.UpdateUser)
   .post("/reservations/:id", UpdateReservation.UpdateReservation)
   .post("/reservation/create", CreateReservation.CreateReservation)
-  .post("/users/create", CreateUser.CreateUser)
+  .post("/user/create", CreateUser.CreateUser)
 
   .delete("/users/:id", DeleteUser.DeleteUser)
   .delete("/reservations/:id", DeleteReservation.DeleteReservation)
   */
 
   // PROD 
+  
   
   .get("/api/reservations/list", GetReservationList.GetReservationList)
   .get("/api/reservations/tables", GetReservationTables.GetReservationTables)
@@ -80,11 +81,12 @@ express()
   .post("/api/users/:id", UpdateUser.UpdateUser)
   .post("/api/reservations/:id", UpdateReservation.UpdateReservation)
   .post("/api/reservation/create", CreateReservation.CreateReservation)
-  .post("/api/users/create", CreateUser.CreateUser)
+  .post("/api/user/create", CreateUser.CreateUser)
 
   .delete("/api/users/:id", DeleteUser.DeleteUser)
   .delete("/api/reservations/:id", DeleteReservation.DeleteReservation)
 
+  
   // add new endpoints here ☝️
   // ---------------------------------
   // Nothing to modify below this line

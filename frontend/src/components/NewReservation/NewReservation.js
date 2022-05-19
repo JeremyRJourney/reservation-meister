@@ -19,10 +19,40 @@ const NewReservation = (props) => {
     const [canSubmit, setCanSubmit] = useState(false)
     const [availableTables, setAvailableTables] = useState([])
 
+    const ValidateForm = () => {
+        let isError = false
+        if (firstName.length == 0) {
+            document.getElementById('fname').style = "border: 2px solid #ef4444; background-color: #ef444433"
+            isError = true
+        } else {
+            document.getElementById('fname').style = "border: none; background-color: none"
+        }
+        if (lastName.length == 0) {
+            document.getElementById('lname').style = "border: 2px solid #ef4444; background-color: #ef444433"
+            isError = true
+        } else {
+            document.getElementById('lname').style = "border: none; background-color: none"
+        }
+        if (time.length == 0) {
+            document.getElementById('time').style = "border: 2px solid #ef4444; background-color: #ef444433"
+            isError = true
+        } else {
+            document.getElementById('time').style = "border: none; background-color: none"
+        }
+        if (guests.length == 0) {
+            document.getElementById('guests').style = "border: 2px solid #ef4444; background-color: #ef444433"
+            isError = true
+        } else {
+            document.getElementById('guests').style = "border: none; background-color: none"
+        }
+        
+        return !isError
+    }
+
     const HandleSubmit = (e) => {
         e.preventDefault() 
 
-        if (firstName && lastName && time && guests && tableNumber) {
+        if (ValidateForm()) {
             setIsFormError(false)
 
             fetch(`${URL}reservation/create`, {
@@ -55,7 +85,7 @@ const NewReservation = (props) => {
 
     }
 
-    const FindTables = () => {
+    const FindTables = (e) => {
         if (guests) {
             setIsFormError(false)
             fetch(`${URL}reservations/available`, {
@@ -100,6 +130,7 @@ const NewReservation = (props) => {
                         <Input
                             onChange={ (e) => setFirstName(e.target.value)}
                             type="text"
+                            id="fname"
                             value={firstName}
                             name="fname" 
                             placeholder="First name" 
@@ -167,7 +198,7 @@ const NewReservation = (props) => {
                     />
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Button onClick={ () => FindTables() }>Check table</Button>
+                    <Button type="button" onClick={ () => FindTables() }>Check table</Button>
                     {canSubmit && <Button type="submit">Create reservation</Button>}
                 </div>
                 {isFormError && <FormError>Required fields missing</FormError>}
@@ -229,6 +260,7 @@ const InputLabel = styled.label`
     font-size: 1rem; 
     line-height: 1.25rem;
     font-weight: 500;
+
 `
 const Input = styled.input`
     filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.05));
@@ -238,6 +270,8 @@ const Input = styled.input`
     border-radius: 4px;
     margin-top: 8px;
     min-width: 225px;
+
+
 `
 const InputNotes = styled.textarea`
     filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.05));

@@ -14,9 +14,10 @@ const options = {
 exports.CreateReservation = async (req, res) => {
 
     const client = new MongoClient(MONGO_URI, options);
-
+    console.log(req)
     try {
         const todaysDate = new Date()
+        
         let month = (todaysDate.getMonth())+1
         if (month.toString().length === 1) {
             month = `0${month}`;

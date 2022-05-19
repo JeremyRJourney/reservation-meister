@@ -18,32 +18,59 @@ const New = (props) => {
     const [isWaiting, setIsWaiting] = useState(false)
     const [responseId, setResponseId] = useState(null)
 
+    const ValidateForm = () => {
+        let isError = false
+        if (firstName.length == 0) {
+            document.getElementById('fname').style = "border: 2px solid #ef4444; background-color: #ef444433"
+            isError = true
+        } else {
+            document.getElementById('fname').style = "border: none; background-color: none"
+        }
+        if (lastName.length == 0) {
+            document.getElementById('lname').style = "border: 2px solid #ef4444; background-color: #ef444433"
+            isError = true
+        } else {
+            document.getElementById('lname').style = "border: none; background-color: none"
+        }
+        if (username.length == 0) {
+            document.getElementById('username').style = "border: 2px solid #ef4444; background-color: #ef444433"
+            isError = true
+        } else {
+            document.getElementById('username').style = "border: none; background-color: none"
+        }
+        return !isError
+    }
+
+
     const HandleSubmit = (e) => {
         e.preventDefault()
-        setIsWaiting(true)
-        fetch(`${URL}user/create`, {
-            method: 'POST',
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",    
-            },
-            body: JSON.stringify({
-                firstName: firstName,
-                lastName: lastName,
-                userType: userType,
-                username: username
+
+        if (ValidateForm() ) {
+            setIsWaiting(true)
+            fetch(`${URL}user/create`, {
+                method: 'POST',
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",    
+                },
+                body: JSON.stringify({
+                    firstName: firstName,
+                    lastName: lastName,
+                    userType: userType,
+                    username: username
+                })
             })
-        })
-        .then(res => {
-            if (res.status === 201)
-                return res.json()
-        })
-        .then((json) => {
-            setIsWaiting(false)
-            setUsers(null)
-            setResponseId(json.data.uid)
-            GetUserList()
-        })
+            .then(res => {
+                if (res.status === 201)
+                    return res.json()
+            })
+            .then((json) => {
+                setIsWaiting(false)
+                setUsers(null)
+                setResponseId(json.data.uid)
+                GetUserList()
+            })
+        }
         
 
     }

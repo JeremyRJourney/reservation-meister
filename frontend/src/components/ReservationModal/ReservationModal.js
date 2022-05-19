@@ -23,10 +23,41 @@ const ReservationModal = (props) => {
 
     const [isFormSubmit, setIsFormSubmit] = useState(false)
 
+    const ValidateForm = () => {
+        let isError = false
+        if (firstName.length == 0) {
+            document.getElementById('fname').style = "border: 2px solid #ef4444; background-color: #ef444433"
+            isError = true
+        } else {
+            document.getElementById('fname').style = "border: none; background-color: none"
+        }
+        if (lastName.length == 0) {
+            document.getElementById('lname').style = "border: 2px solid #ef4444; background-color: #ef444433"
+            isError = true
+        } else {
+            document.getElementById('lname').style = "border: none; background-color: none"
+        }
+        if (time.length == 0) {
+            document.getElementById('time').style = "border: 2px solid #ef4444; background-color: #ef444433"
+            isError = true
+        } else {
+            document.getElementById('time').style = "border: none; background-color: none"
+        }
+        if (guests.length == 0) {
+            document.getElementById('guests').style = "border: 2px solid #ef4444; background-color: #ef444433"
+            isError = true
+        } else {
+            document.getElementById('guests').style = "border: none; background-color: none"
+        }
+        
+        return !isError
+    }
+
+
     const HandleSubmit = (e) => {
         e.preventDefault()
 
-        if (firstName && lastName && time && guests) {
+        if (ValidateForm()) {
             setIsFormSubmit(true)
             fetch(`${URL}reservations/${data._id}`, {
                 method: 'POST',

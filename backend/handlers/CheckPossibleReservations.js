@@ -24,12 +24,18 @@ exports.CheckReservations = async (req, res) => {
         if (tables) {
             const reservations = await db.collection("reservations").find().toArray()
             if (reservations) {
+                const today = (new Date()).getDate()
+
                 tables.forEach(table => {
                     if (table.tableType == req.body.guests) {
                         let isReserved = false
                         reservations.forEach(reserve => {
-                            if (table.tableName === reserve.tableName)
-                                isReserved = true
+                            if (table.tableName === reserve.tableName) {
+                                const reserveDate = new Date(reserve.time)
+                                if (today == reserveDate.getDate()) {
+                                    isReserved = true
+                                }
+                            }
                         });
                         if (!isReserved) {
                             toReturn.push(table)

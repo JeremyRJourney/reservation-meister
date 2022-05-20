@@ -24,6 +24,14 @@ exports.UpdateReservation = async (req, res) => {
     
         const formattedDate = todaysDate.getFullYear() + "-" + month + "-" + todaysDate.getDate()
 
+        let status = null
+        const currentDate = new Date()
+        const reserveDate = new Date(formattedDate+"T"+req.body.time+":00")
+        if (Date.parse(currentDate) < Date.parse(reserveDate))
+            status = 'none'
+        else
+            status = req.body.status
+
         await client.connect();
         const db = client.db("project");
         const user = await db.collection("reservations").updateOne(
@@ -35,7 +43,7 @@ exports.UpdateReservation = async (req, res) => {
                     "lastName": req.body.lastName,
                     "guests": req.body.guests,
                     "time": formattedDate+"T"+req.body.time+":00",
-                    "status": req.body.status,
+                    "status": status,
                     "notes": req.body.notes,
                 }
             }

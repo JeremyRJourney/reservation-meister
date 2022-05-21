@@ -6,7 +6,7 @@ Take, update and manage reservations from anywhere. With the addition of user ma
 
 Easily distinguish what stage a reservation is at during the evening with color coding of tables and hover tooltips to remind you who they are and when they were seated.
 
-![Reservation Meister Image](https://aimeos.org/fileadmin/user_upload/typo3-demo.jpg)
+![Reservation Meister Image](https://github.com/JeremyRJourney/reservation-meister/reservation.png)
 
 ## Table of content
 

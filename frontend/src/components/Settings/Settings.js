@@ -57,7 +57,7 @@ const Settings = () => {
                 }
                 {users && users.map(item => {
                     return (
-                        <div key={item.id}>
+                        <div key={item._id}>
                         <User 
                             style={{ paddingBottom: '8px', borderBottom: '2px solid #6b7280' }}
                             onClick={ () => SetUserModals(item) }

@@ -69,6 +69,28 @@ const Details = (props) => {
         }
     }
 
+    const DeleteUser = () => {
+        setIsWaiting(true)
+        fetch(`${URL}users/${data._id}`, {
+            method: 'DELETE',
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",    
+            }
+        })
+        .then(res => {
+            if (res.status === 200)
+                return res.json()
+        })
+        .then((json) => {
+            setIsWaiting(false)
+            setShowDetailsModal(false)
+            setUsers(null)
+            GetUserList()
+        })
+
+    }
+
     return (
         <Container>
         <Wrapper>
@@ -124,8 +146,10 @@ const Details = (props) => {
                         <option value="host">Host</option>
                     </StatusDropdown>
                 </div>
-
-                <Button type="submit">Update user</Button>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Button type="submit">Update user</Button>
+                    <Button onClick={ () => DeleteUser() } type="button">Delete</Button>
+                </div>
             </form>
             {isWaiting &&
                 <span style={{ marginTop: '16px' }} className="spinner-small"></span>

@@ -22,7 +22,7 @@ exports.CreateReservation = async (req, res) => {
         if (month.toString().length === 1) {
             month = `0${month}`;
         }
-        const formattedDate = todaysDate.getFullYear() + "-" + month + "-" + todaysDate.getDate()
+        const formattedDate = todaysDate.getFullYear() + "-" + month + "-" + ('0' + MyDate.getDate()).slice(-2)
         await client.connect();
         const db = client.db("project");
         const reservations = await db.collection("reservations").insertOne({

@@ -21,8 +21,12 @@ exports.UpdateReservation = async (req, res) => {
         if (month.toString().length === 1) {
             month = `0${month}`;
         }
+        let day = (todaysDate.getDate())
+        if (day.toString().length === 1) {
+            day = `0${day}`;
+        }
     
-        const formattedDate = todaysDate.getFullYear() + "-" + month + "-" + ('0' + MyDate.getDate()).slice(-2)
+        const formattedDate = todaysDate.getFullYear() + "-" + month + "-" + day
 
         let status = null
         const currentDate = new Date()
